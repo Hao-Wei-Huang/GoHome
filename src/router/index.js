@@ -38,11 +38,6 @@ const routes = [
     ],
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/backend/Login.vue'),
-  },
-  {
     path: '/admin',
     name: 'Admin',
     component: () => import('../views/backend/Admin.vue'),
@@ -53,9 +48,19 @@ const routes = [
         component: () => import('../views/backend/Product.vue'),
       },
       {
+        path: 'login',
+        name: 'Login',
+        component: () => import('../views/backend/Login.vue'),
+      },
+      {
         path: 'customer',
         name: 'Admin Customer',
         component: () => import('../views/backend/CustomerInofo.vue'),
+      },
+      {
+        path: 'cupon',
+        name: 'Admin Cupon',
+        component: () => import('../views/backend/Cupon.vue'),
       },
     ],
   },

@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/admin">Home</router-link>|
-      <router-link to="/admin/customer">Customer Info</router-link>
+      <router-link to="/admin">首頁</router-link>|
+      <router-link to="/admin/customer">顧客資訊</router-link>|
+      <router-link to="/admin/cupon">優惠卷</router-link>|
+      <router-link to="/admin/login">登入</router-link>
     </div>
     <router-view></router-view>
   </div>

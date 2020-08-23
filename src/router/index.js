@@ -1,23 +1,64 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'frontend',
+    component: () => import('../views/frontend/Frontend.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('../views/frontend/Home.vue'),
+      },
+      {
+        path: 'products',
+        name: 'Products',
+        component: () => import('../views/frontend/Products.vue'),
+      },
+      // 動態路由
+      {
+        path: 'product/:id',
+        name: 'Product',
+        component: () => import('../views/frontend/Product.vue'),
+      },
+      {
+        path: 'cart',
+        name: 'Cart',
+        component: () => import('../views/frontend/Cart.vue'),
+      },
+      {
+        path: 'customer',
+        name: 'Customer',
+        component: () => import('../views/frontend/CustomerInfo.vue'),
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/backend/Login.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/backend/Admin.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Admin Product',
+        component: () => import('../views/backend/Product.vue'),
+      },
+      {
+        path: 'customer',
+        name: 'Admin Customer',
+        component: () => import('../views/backend/CustomerInofo.vue'),
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({

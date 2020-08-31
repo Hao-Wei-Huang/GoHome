@@ -15,7 +15,7 @@
               <router-link to="/products" class="nav-link text-white h5">去訂房</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/cart"  class="nav-link text-white h5"><font-awesome-icon :icon="['fas', 'shopping-cart']" /></router-link>
+              <cart-menu></cart-menu>
             </li>
             <li class="nav-item">
               <router-link to="/admin" class="nav-link text-white h5">後台管理</router-link>
@@ -40,9 +40,11 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '../components/HelloWorld.vue';
-
+import cartMenu from '@/components/CartMenu.vue';
 export default {
-
+  components: {
+    'cart-menu': cartMenu,
+  }
 };
 </script>
 <style lang="scss">

@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/admin">首頁</router-link>|
-      <router-link to="/admin/customer">顧客資訊</router-link>|
-      <router-link to="/admin/cupon">優惠卷</router-link>|
-      <router-link to="/admin/login">登入</router-link>
-    </div>
-    <router-view></router-view>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container  align-items-end ">
+        <a class="navbar-brand" href="#">後台管理</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+          <ul class="navbar-nav nav-menu">
+            <li class="nav-item">
+              <router-link to="/admin" class="nav-link text-white h5">產品列表</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/customer_order" class="nav-link text-white h5">訂單列表</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/cupon" class="nav-link text-white h5">優惠卷</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/admin/login" class="nav-link text-white h5">登入</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <router-view :token='token' v-if="checkSuccess"></router-view>
   </div>
 </template>
 <script>
@@ -14,28 +32,38 @@ export default {
   name: 'Admin',
   data () {
     return {
+      token: '',
+      checkSuccess: false,
     };
+  },
+  methods: {
+    checkLogin () {
+      this.token = document.cookie.replace(/(?:(?:^|.*;\s*)adminToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+      this.$http.defaults.headers.Authorization = `Bearer ${this.token}`;
+      let api = `${process.env.VUE_APP_APIPATH}auth/check`;
+      this.$http.post(api, { api_token: this.token })
+        .then(response => {
+          this.checkSuccess = true;
+        })
+        .catch(error => {
+          this.$router.push('/login');
+          console.log(error);
+        });
+    }
+  },
+  created () {
+    this.checkLogin();
   },
 };
 </script>
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+.nav-menu{
+  a{
+    &:hover{
+      color: #13c5bd !important;
     }
   }
 }

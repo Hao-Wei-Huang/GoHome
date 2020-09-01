@@ -51,8 +51,8 @@
                                             <div class="form-row">
                                               <div class="form-group col-4">
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
-                                                  <label for="modifiedHotelModalHotelAddress">地址</label>
-                                                  <select class="form-control" :class="classes" id="modifiedHotelModalHotelAddress" name="縣市" v-model="modifiedHotel.options.address.city">
+                                                  <label for="modifiedHotelModalHotelAddressCity">縣市</label>
+                                                  <select class="form-control" :class="classes" id="modifiedHotelModalHotelAddressCity" name="縣市" v-model="modifiedHotel.options.address.city">
                                                     <option disabled value="">請選擇</option>
                                                     <option value="Taipei">台北市</option>
                                                     <option value="Taoyuan">桃園市</option>
@@ -67,12 +67,19 @@
                                               </div>
                                               <div class="form-group col-8">
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
-                                                  <label for="modifiedHotelModalHotelAddress">地址</label>
-                                                  <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelAddress" v-model="modifiedHotel.options.address.road" name="地址">
+                                                  <label for="modifiedHotelModalHotelAddressRoad">地址</label>
+                                                  <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelAddressRoad" v-model="modifiedHotel.options.address.road" name="地址">
                                                   <span class="invalid-feedback">{{errors[0]}}</span>
                                                 </validation-provider>
                                               </div>
                                             </div>
+                                          </div>
+                                          <div class="col-12">
+                                            <validation-provider rules="required" v-slot="{errors,classes}">
+                                              <label for="modifiedHotelModalHotelAddressUrl">gooogle map url</label>
+                                              <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelAddressUrl" v-model="modifiedHotel.options.address.googleMapUrl" name="gooogle map url">
+                                              <span class="invalid-feedback">{{errors[0]}}</span>
+                                            </validation-provider>
                                           </div>
                                           <div class="col-6">
                                             <div class="form-group">

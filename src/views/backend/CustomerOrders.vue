@@ -1,7 +1,7 @@
 <template>
     <div class="content mt-3">
         <div class="container">
-          <table class="table mt-4 text-left">
+          <!-- <table class="table mt-4 text-left">
             <thead class="bg-primary text-white">
               <tr>
                 <th scope="col" style="width: 160px;">下單時間</th>
@@ -30,7 +30,7 @@
                   </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
           <pagination :pages="pagination" @switchedpage="getOrders"></pagination>
         </div>
     </div>

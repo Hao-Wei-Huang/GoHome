@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container  align-items-end ">
-        <a class="navbar-brand" href="#"><img src="../../../public/logo_transparent.png" alt="" width="100"></a>
+        <router-link to="/" class="navbar-brand"><img src="../../../public/logo.png" alt="" width="100"></router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

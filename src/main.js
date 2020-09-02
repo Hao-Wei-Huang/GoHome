@@ -20,7 +20,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper/css/swiper.css';
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faEdit, faTrash, faCheck, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faEdit, faTrash, faCheck, faTimes, faPlus, faMapMarkerAlt, faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 // import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faPaperPlane, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -40,19 +40,21 @@ Vue.use(VueAwesomeSwiper);
 Vue.component('validationObserver', ValidationObserver);
 Vue.component('validationProvider', ValidationProvider);
 
-library.add(faShoppingCart, faStar, faPaperPlane);
+library.add(faShoppingCart, faStar, faPaperPlane, faCheckCircle, faExclamationTriangle);
 // login icon
 library.add(faEnvelope, faLock);
 // hotel product icon
-library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser);
+library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMarkerAlt);
 // backend
 library.add(faEdit, faTrash, faCheck, faTimes, faPlus);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.filter('moneyFilter', num => {
-  var parts = num.toString().split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return parts.join('.');
+  if (num) {
+    var parts = num.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+  }
 });
 
 // vee-validate

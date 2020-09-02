@@ -1,7 +1,7 @@
 <template>
   <div class="content text-left">
     <div class="container">
-      <h2 class="text-center my-3">訂購人資訊</h2>
+      <h2 class="text-center my-3">確認訂單並付款</h2>
       <div class="row justify-content-center">
         <div class="col-5">
           <validation-observer v-slot="{ invalid }">

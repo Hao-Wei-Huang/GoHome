@@ -31,6 +31,11 @@ const routes = [
         component: () => import('../views/frontend/Cart.vue'),
       },
       {
+        path: 'customer_order',
+        name: 'Customer Order',
+        component: () => import('../views/frontend/CustomerOrder.vue'),
+      },
+      {
         path: 'customer',
         name: 'Customer',
         component: () => import('../views/frontend/CustomerInfo.vue'),
@@ -67,6 +72,9 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  scrollBehavior () {
+    return { x: 0, y: 0 };
+  },
   routes
 })
 

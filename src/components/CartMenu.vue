@@ -9,7 +9,7 @@
       <table class="w-100">
           <tbody>
               <tr v-for="(item) in cart" :key="item.id">
-                  <td class="ellipsis py-2">{{item.product.title}}</td>
+                  <td class="cart-ellipsis py-2">{{item.product.title}}</td>
                   <td class="py-2" style="width: 40px;">{{item.quantity}}間</td>
                   <td class="text-right py-2">${{item.product.price | moneyFilter}}</td>
               </tr>
@@ -70,7 +70,7 @@ export default {
     width: 250px;
 }
 
-.ellipsis {
+.cart-ellipsis {
     max-width: 130px;
     overflow: hidden;
     white-space: nowrap;

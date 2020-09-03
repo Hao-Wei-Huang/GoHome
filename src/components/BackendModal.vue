@@ -16,17 +16,16 @@
                                 <div class="form-row">
                                     <div class="col-5">
                                       <div class="form-group">
-                                        <validation-provider v-slot="{errors,classes}">
-                                          <label for="modifiedHotelModalImgUrl">輸入圖片網址</label>
-                                          <div class="input-group">
-                                            <input type="text" class="form-control" :class="`{${classes}:modifiedHotel.imageUrl.length < 1}`" id="modifiedHotelModalImgUrl" v-model="imageUrl" name="圖片網址">
-                                            <div class="input-group-append">
-                                              <button class="btn btn-success" type="button" @click="updateImage" :disabled="imageUrl === ''">確認</button>
-                                              <button class="btn btn-outline-danger rounded-right" type="button" @click="removeImage" :disabled="imageUrl == ''">刪除</button>
-                                            </div>
-                                            <span class="invalid-feedback" v-if="modifiedHotel.imageUrl.length < 1">{{errors[0]}}</span>
+                                        <label for="modifiedHotelModalFile">上傳照片</label>
+                                        <input type="file" class="form-control-file" id="modifiedHotelModalFile" @change="uploadFile">
+                                      </div>
+                                      <div class="form-group">
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" id="modifiedHotelModalImgUrl" v-model="imageUrl" name="圖片網址">
+                                          <div class="input-group-append">
+                                            <button class="btn btn-outline-danger rounded-right" type="button" @click="removeImage" :disabled="imageUrl == ''">刪除</button>
                                           </div>
-                                        </validation-provider>
+                                        </div>
                                       </div>
                                       <a href="#" v-for="(item) in modifiedHotel.imageUrl" :key="item" @click.prevent="showImage(item)"><img class="w-25 m-2" :src="item" alt="飯店圖片"></a>
                                     </div>
@@ -313,9 +312,22 @@ export default {
     showImage (imageUrl) {
       this.imageUrl = imageUrl;
     },
-    updateImage () {
-      this.modifiedHotel.imageUrl.push(this.imageUrl);
-      this.imageUrl = '';
+    uploadFile () {
+      const uploadedFile = document.querySelector('#modifiedHotelModalFile').files[0];
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage`;
+      this.$http.post(api, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      })
+        .then(res => {
+          this.modifiedHotel.imageUrl.push(res.data.data.path);
+        })
+        .catch(error => {
+          console.log('error:', error);
+        });
     },
     removeImage () {
       this.modifiedHotel.imageUrl.forEach((item, index) => {

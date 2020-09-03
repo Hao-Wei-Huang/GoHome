@@ -15,6 +15,9 @@
               <router-link to="/admin/customer_order" class="nav-link text-white h5">訂單列表</router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/admin/storage" class="nav-link text-white h5">圖片儲存列表</router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/admin/cupon" class="nav-link text-white h5">優惠卷</router-link>
             </li>
             <li class="nav-item">

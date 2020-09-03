@@ -63,6 +63,11 @@ const routes = [
         component: () => import('../views/backend/CustomerOrders.vue'),
       },
       {
+        path: 'storage',
+        name: 'Admin Storage',
+        component: () => import('../views/backend/Storage.vue'),
+      },
+      {
         path: 'cupon',
         name: 'Admin Cupon',
         component: () => import('../views/backend/Cupon.vue'),

@@ -106,11 +106,6 @@ export default {
   data () {
     return {};
   },
-  created () {
-    this.$bus.$emit('pushmessage', 'success', 'toast成功1');
-    this.$bus.$emit('pushmessage', 'warning', 'toast成功2');
-    this.$bus.$emit('pushmessage', 'success', 'toast成功3');
-  }
 };
 </script>
 <style lang="scss">

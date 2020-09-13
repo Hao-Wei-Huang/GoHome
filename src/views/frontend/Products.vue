@@ -160,6 +160,7 @@ export default {
       this.search.destination = this.tempSearch.destination;
       this.search.range.start = this.tempSearch.range.start;
       this.search.range.end = this.tempSearch.range.end;
+      document.querySelector('#seachedData').classList.remove('show');
     },
     getSearchDate () {
       if (this.$route.query.search) {
@@ -170,7 +171,7 @@ export default {
         this.tempSearch.range.start = new Date(this.$route.query.search.range.start);
         this.tempSearch.range.end = new Date(this.$route.query.search.range.end);
       }
-    }
+    },
   },
   created () {
     this.getAllHotelsData();

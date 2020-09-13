@@ -73,8 +73,13 @@
           </section>
           <section class="mt-5">
             <h3 class="mb-3">飯店設施</h3>
-            <div class="text-left text-primary row" >
-              <div class="col">
+            <div class="text-left text-primary" >
+              <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isBreakfast"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'utensils']"/>提供早餐</span>
+              <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isWifi"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'wifi']"/>免費無線網路</span>
+              <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isParking"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'parking']"/>有停車場</span>
+              <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isSmokeBan"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'smoking-ban']"/>禁止吸菸</span>
+              <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isPen"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'dog']"/>寵物可入住</span>
+              <!-- <div class="col">
                 <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isBreakfast"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'utensils']"/>提供早餐</span>
               </div>
               <div class="col">
@@ -88,7 +93,7 @@
               </div>
               <div class="col">
                 <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isPen"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'dog']"/>寵物可入住</span>
-              </div>
+              </div> -->
             </div>
           </section>
           <section class="mt-5">
@@ -105,7 +110,7 @@
               <tbody>
                 <tr>
                   <th scope="row">奢華雙人房</th>
-                  <td class="text-left d-none d-sm-block">
+                  <td class="text-left d-none d-md-block">
                     <font-awesome-icon class="text-primary" v-for="item in 2" :key="item" :icon="['fas', 'user']"/>
                   </td>
                   <td class="text-right h5"><div class="h6 text-line-through text-danger">${{hotel.origin_price | moneyFilter}}</div>${{hotel.price | moneyFilter}}</td>

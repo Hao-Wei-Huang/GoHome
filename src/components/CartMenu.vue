@@ -89,7 +89,7 @@ export default {
 }
 
 .cart-dropdown {
-    left: -100px;
+    left: -120px;
     width: 250px;
 }
 

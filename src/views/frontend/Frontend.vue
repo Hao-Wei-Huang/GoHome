@@ -27,7 +27,7 @@
     </nav>
     <router-view></router-view>
     <footer class="bg-primary p-4 mt-md-5 mt-3 text-white">
-      <div class="container d-flex justify-content-center">
+      <div class="container d-flex justify-content-center flex-column flex-md-row align-items-center">
         <div>本平台提供訂房之服務</div>
         <ul class="text-left">
           <li>聯絡我們 : <a href="tel:+886-2-24341341" class="text-white">02-2434-1341</a></li>

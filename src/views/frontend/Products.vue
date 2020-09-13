@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <loading :active.sync="isLoading" ></loading>
-    <section class="mt-3 mt-md-5">
+    <section class="mt-0 mt-sm-3 mt-md-5">
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-lg-3 text-left px-0 px-md-3 sticky-top">
@@ -59,10 +59,10 @@
                   </div>
                   <div class="col-9">
                     <div class="d-flex flex-column py-3 text-left">
-                      <h5>
+                      <h2 class="h4">
                         {{ item.title }}
                         <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
-                      </h5>
+                      </h2>
                       <div class="mt-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{item.options.address.city}}{{item.options.address.road}}</div>
                       <p class="mt-2 flex-grow-1 ellipsis">{{ item.content }}</p>
                       <div class="text-right ">

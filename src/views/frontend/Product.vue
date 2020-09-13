@@ -73,7 +73,7 @@
           </section>
           <section class="mt-5">
             <h3 class="mb-3">飯店設施</h3>
-            <div class="text-left text-primary">
+            <div class="text-left text-primary" style="word-break: break-all;">
               <span class="mr-3" style="white-space:nowrap" v-if="hotel.options.facilities.isBreakfast"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'utensils']"/>提供早餐</span>
               <span class="mr-3" style="white-space:nowrap" v-if="hotel.options.facilities.isWifi"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'wifi']"/>免費無線網路</span>
               <span class="mr-3" style="white-space:nowrap" v-if="hotel.options.facilities.isParking"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'parking']"/>有停車場</span>

@@ -35,11 +35,6 @@ const routes = [
         name: 'Customer Order',
         component: () => import('../views/frontend/CustomerOrder.vue'),
       },
-      {
-        path: 'customer',
-        name: 'Customer',
-        component: () => import('../views/frontend/CustomerInfo.vue'),
-      },
     ],
   },
   {

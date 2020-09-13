@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <loading :active.sync="isLoading" ></loading>
-    <div class="container mt-5">
+    <div class="container mt-md-5 mt-3">
       <div class="row flex-row-reverse">
         <!-- <div class="col-md-3 text-left px-0 px-md-3 mb-3">
           <nav class="navbar navbar-expand-md navbar-light bg-co-primary p-0 flex-md-column align-items-md-stretch">
@@ -87,7 +87,7 @@
               <thead>
                 <tr class="bg-primary text-white">
                   <th scope="col">房型</th>
-                  <th scope="col">人數</th>
+                  <th scope="col" class="d-none d-md-block">人數</th>
                   <th scope="col">價格</th>
                   <th scope="col">房間數量</th>
                 </tr>
@@ -95,7 +95,7 @@
               <tbody>
                 <tr>
                   <th scope="row">奢華雙人房</th>
-                  <td class="text-left">
+                  <td class="text-left d-none d-sm-block">
                     <font-awesome-icon class="text-primary" v-for="item in 2" :key="item" :icon="['fas', 'user']"/>
                   </td>
                   <td class="text-right h5"><div class="h6 text-line-through text-danger">${{hotel.origin_price | moneyFilter}}</div>${{hotel.price | moneyFilter}}</td>
@@ -113,7 +113,7 @@
                 </tr>
                 <tr>
                   <th scope="row">頂級三人房</th>
-                  <td class="text-left">
+                  <td class="text-left d-none d-md-block">
                     <font-awesome-icon class="text-primary" v-for="item in 3" :key="item" :icon="['fas', 'user']"/>
                   </td>
                   <td class="text-right h5"><div class="h6 text-line-through text-danger">${{hotel.options.roomPrice.tripleRoomOriginPrice | moneyFilter}}</div>${{hotel.options.roomPrice.tripleRoomPrice | moneyFilter}}</td>
@@ -131,7 +131,7 @@
                 </tr>
                 <tr>
                   <th scope="row">豪華四人房</th>
-                  <td class="text-left">
+                  <td class="text-left d-none d-md-block">
                     <font-awesome-icon class="text-primary" v-for="item in 4" :key="item" :icon="['fas', 'user']"/>
                   </td>
                   <td class="text-right h5"><div class="h6 text-line-through text-danger">${{hotel.options.roomPrice.quadrupleRoomOriginPrice | moneyFilter}}</div>${{hotel.options.roomPrice.quadrupleRoomPrice | moneyFilter}}</td>

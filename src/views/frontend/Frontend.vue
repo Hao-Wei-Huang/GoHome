@@ -26,7 +26,7 @@
       </div>
     </nav>
     <router-view></router-view>
-    <footer class="bg-primary p-4 mt-5 text-white">
+    <footer class="bg-primary p-4 mt-md-5 mt-3 text-white">
       <div class="container d-flex justify-content-center">
         <div>本平台提供訂房之服務</div>
         <ul class="text-left">

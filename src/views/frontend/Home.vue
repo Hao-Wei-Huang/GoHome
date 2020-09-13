@@ -130,7 +130,7 @@
         <div class="row">
           <swiper class="swiper" :options="swiperOption" v-if="hotels.length > 0">
             <template v-for="item in hotels">
-              <swiper-slide class="col-6 col-md-4 col-lg-3  cursor" v-if="item.options.hotelRating === '5'" :key="item.id">
+              <swiper-slide class="col-12 col-sm-6 col-md-4 col-lg-3  cursor" v-if="item.options.hotelRating === '5'" :key="item.id">
                 <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
                   <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
                   <div class="p-3">
@@ -185,8 +185,12 @@ export default {
             slidesPerView: 3,
             spaceBetween: 0
           },
-          300: {
+          576: {
             slidesPerView: 2,
+            spaceBetween: 0
+          },
+          300: {
+            slidesPerView: 1,
             spaceBetween: 0
           },
         }

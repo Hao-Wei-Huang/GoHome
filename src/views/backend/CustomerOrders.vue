@@ -23,7 +23,7 @@
                   <td class="text-right">${{item.amount}}</td>
                   <td>
                     <div class="custom-control custom-switch">
-                      <input type="checkbox" class="custom-control-input" :id="item.id" @change="setOrderPayment(item)">
+                      <input type="checkbox" class="custom-control-input" :id="item.id" @change="setOrderPayment(item)" v-model="item.paid">
                       <label class="custom-control-label text-success" v-if="item.paid" :for="item.id">已付款</label>
                       <label class="custom-control-label text-muted" v-else :for="item.id">尚未付款</label>
                     </div>

@@ -53,7 +53,6 @@ export default {
   },
   created () {
     this.$bus.$on('pushmessage', (status, message) => {
-      console.log(status, message);
       this.updateMessage(status, message);
     });
   }

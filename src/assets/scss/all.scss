@@ -3,5 +3,6 @@
 @import "~bootstrap/scss/mixins";
 
 @import '~bootstrap/scss/bootstrap';
-@import './mixin/mixin'; 
-@import './layout/layout';
+@import 'mixin'; 
+@import 'layout';
+@import 'grid';

@@ -10,5 +10,6 @@ export function bitToRoomCount (roomBit) {
   roomCount.doubleRoomCount = roomBit & doubleRoomMask;
   roomCount.tripleRoomCount = (roomBit & tripleRoomMask) >> 5;
   roomCount.quadrupleRoomCount = (roomBit & quadrupleRoomMask) >> 10;
+  roomCount.total = roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount;
   return roomCount;
 }

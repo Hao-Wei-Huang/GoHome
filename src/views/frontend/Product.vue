@@ -2,14 +2,53 @@
   <div class="content">
     <loading :active.sync="isLoading" ></loading>
     <div class="container mt-5">
-      <div class="row">
-        <div class="col-4">
-          <iframe :src="hotel.options.address.googleMapUrl" width="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-          <section class="text-left mt-5">
-            <h3>住客評論</h3>
-          </section>
-        </div>
-        <div class="col-8">
+      <div class="row flex-row-reverse">
+        <!-- <div class="col-md-3 text-left px-0 px-md-3 mb-3">
+          <nav class="navbar navbar-expand-md navbar-light bg-co-primary p-0 flex-md-column align-items-md-stretch">
+            <h4 class="p-2 text-white">找旅館</h4>
+            <button class="navbar-toggler p-2 mr-2" type="button" data-toggle="collapse" data-target="#seachedData" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <font-awesome-icon class="text-white" :icon="['fas', 'search']"/>
+            </button>
+            <div class="collapse navbar-collapse" id="seachedData">
+            <form class="bg-info p-3 w-100" @submit.prevent="goHotels">
+              <div class="form-group" >
+                <label for="destination" class="">目的地</label>
+                <select class="form-control mt-1" id="destination" name="縣市" v-model="search.destination" >
+                  <option disabled value="">請選擇</option>
+                  <option value="台北市">台北市</option>
+                  <option value="台中市">台中市</option>
+                  <option value="嘉義縣">嘉義縣</option>
+                  <option value="台南市">台南市</option>
+                  <option value="高雄市">高雄市</option>
+                  <option value="屏東縣">屏東縣</option>
+                </select>
+              </div>
+              <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+                <div>
+                  <div class="form-group">
+                    <label for="checkinDate">入住時間</label>
+                    <div class="position-relative mt-1">
+                      <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                      <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
+                    </div>
+                  </div>
+                </div>
+              </date-picker>
+              <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+                <div class="form-group">
+                  <label for="checkoutDate">退房時間</label>
+                  <div class="position-relative mt-1">
+                    <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                    <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
+                  </div>
+                </div>
+              </date-picker>
+              <button class="btn btn-primary w-100">搜尋</button>
+            </form>
+            </div>
+          </nav>
+        </div> -->
+        <div class="col-md-8 col-lg-9">
           <section>
             <h2 class="text-left mb-3">
               {{hotel.title}}
@@ -116,6 +155,71 @@
             </div>
           </section>
         </div>
+        <div class="col-md-4 col-lg-3 text-left mb-3">
+          <section class="text-left d-md-block d-none">
+            <h4 class="bg-co-primary p-2 text-white">找旅館</h4>
+            <form class="bg-info p-3" @submit.prevent="goHotels">
+              <div class="form-group" >
+                <label for="destination" class="">目的地</label>
+                <select class="form-control mt-1" id="destination" name="縣市" v-model="search.destination" >
+                  <option disabled value="">請選擇</option>
+                  <option value="台北市">台北市</option>
+                  <option value="台中市">台中市</option>
+                  <option value="嘉義縣">嘉義縣</option>
+                  <option value="台南市">台南市</option>
+                  <option value="高雄市">高雄市</option>
+                  <option value="屏東縣">屏東縣</option>
+                </select>
+              </div>
+              <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+                <div>
+                  <div class="form-group">
+                    <label for="checkinDate">入住時間</label>
+                    <div class="position-relative mt-1">
+                      <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                      <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
+                    </div>
+                  </div>
+                </div>
+              </date-picker>
+              <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+                <div class="form-group">
+                  <label for="checkoutDate">退房時間</label>
+                  <div class="position-relative mt-1">
+                    <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                    <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
+                  </div>
+                </div>
+              </date-picker>
+              <button class="btn btn-primary w-100">搜尋</button>
+            </form>
+          </section>
+          <iframe :src="hotel.options.address.googleMapUrl" class="mt-3" width="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+          <section class="text-left mt-3">
+            <h4>住客評價</h4>
+            <div class="media mt-3">
+              <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="" class="portrait">
+              <div class="media-body ml-2">
+                <h5 class="mt-0 text-primary">凱凱<font-awesome-icon class="text-success ml-1" :icon="['fas', 'thumbs-up']"/></h5>
+                <p>飯店舒適，服務人員相當貼心，就像回到家一樣，如果有機會下次會再來住。</p>
+              </div>
+            </div>
+            <div class="media mt-3">
+              <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="" class="portrait">
+              <div class="media-body ml-2">
+                <h5 class="mt-0 text-primary">珍妮<font-awesome-icon class="text-co-primary ml-1" :icon="['far', 'kiss-wink-heart']"/></h5>
+                <p>CP值超高，很適合情侶來住，晚上夜景相當漂亮，飯店也很乾淨，可以感受到老闆的用心。</p>
+              </div>
+            </div>
+            <div class="media mt-3">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" class="portrait">
+              <div class="media-body ml-2">
+                <h5 class="mt-0 text-primary">潔西卡<font-awesome-icon class="text-danger ml-1" :icon="['fas', 'heart']"/></h5>
+                <p>服務人員熱情接待，全程到我們到房間及介紹附近知名景點讓我們能玩的很盡興，食物也很好吃。</p>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   </div>
@@ -123,8 +227,12 @@
 
 <script>
 import { roomCountToBit } from '@/room-count-transform.js';
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
   name: 'carrousel',
+  components: {
+    'date-picker': DatePicker,
+  },
   data () {
     return {
       hotelID: '',
@@ -159,7 +267,14 @@ export default {
         touchRatio: 0.2,
         slideToClickedSlide: true,
         grabCursor: true
-      }
+      },
+      search: {
+        destination: '台北市',
+        range: {
+          start: new Date(),
+          end: new Date(new Date().getTime() + 86400000),
+        },
+      },
     };
   },
   methods: {
@@ -240,6 +355,7 @@ export default {
           }
           this.getCartData();
           this.isLoading = false;
+          this.$bus.$emit('updateCart');
         })
         .catch(error => {
           console.log('error:', error);
@@ -249,11 +365,50 @@ export default {
     checkout () {
       this.addHotelToCart(true);
     },
+    formateDate (date) {
+      const dayList = ['日', '一', '二', '三', '四', '五', '六'];
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let dayIndex = date.getDay();
+      if (month < 10) {
+        month = '0' + month;
+      }
+      if (day < 10) {
+        day = '0' + day;
+      }
+      return `${date.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`;
+    },
+    getSearchDate () {
+      if (this.$route.query.search) {
+        this.search.destination = this.$route.query.search.destination;
+        this.search.range.start = new Date(this.$route.query.search.range.start);
+        this.search.range.end = new Date(this.$route.query.search.range.end);
+      }
+    },
+    goHotels () {
+      if (this.search.destination === '') {
+        this.$bus.$emit('pushmessage', 'warning', '請選擇旅館地點');
+        return
+      }
+      let tempSearch = JSON.parse(JSON.stringify(this.search));
+      tempSearch.range.start = this.search.range.start.getTime();
+      tempSearch.range.end = this.search.range.end.getTime();
+      this.$router.push({ path: '/products', query: { search: tempSearch } });
+    },
   },
   created () {
     this.getHotelID();
     this.getHotelData();
     this.getCartData();
+    this.getSearchDate();
+  },
+  computed: {
+    checkinDate () {
+      return this.formateDate(this.search.range.start);
+    },
+    checkoutDate () {
+      return this.formateDate(this.search.range.end);
+    }
   },
 }
 
@@ -286,7 +441,16 @@ export default {
       opacity: 1;
     }
   }
-  .hotel-room-count {
-    max-width: 60px;
-  }
+.hotel-room-count {
+  max-width: 60px;
+}
+.calendar-icon{
+position: absolute;
+top:0.7rem;
+left:0.3rem;
+}
+.portrait{
+  width: 64px;
+  border-radius: 50%;
+}
 </style>

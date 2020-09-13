@@ -79,14 +79,15 @@ $theme-colors: () !default;
 $theme-colors: map-merge(
   (
     "primary":    #1F1C3F,
+    "co-primary" :#F05C10,
     "secondary":  #13c5bd,
     "success":    $success,
-    "info":       $info,
+    "info":      #FA9309,
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
     "dark":       $dark,
-    "muted":      $gray-400
+    "muted":      $gray-400,
   ),
   $theme-colors
 );

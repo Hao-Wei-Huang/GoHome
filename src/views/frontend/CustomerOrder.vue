@@ -1,9 +1,25 @@
 <template>
   <div class="content">
     <div class="container">
-      <h2 class="text-center my-3">確認訂單並付款</h2>
+      <div class="row text-md-center text-left my-5">
+        <div class="col-md-4">
+          <div class="alert alert-dark alert-rounded" role="alert">
+            <span class="circle mr-2 text-center">1</span>選擇旅館
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="alert alert-success alert-rounded order-comfirmation" role="alert">
+            <span class="circle mr-2 text-center">2</span>確認訂單並付款
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="alert alert-muted alert-rounded finished-reservation" role="alert">
+            <span class="circle mr-2 text-center">3</span>完成訂房
+          </div>
+        </div>
+      </div>
       <div class="row flex-column align-items-center">
-        <div class="col-6 text-left">
+        <div class="col-lg-6 col-md-8 text-left">
           <section class="bg-shadow p-3">
             <h3 class="mb-3">旅館訂單資訊</h3>
             <table class="w-100 h5">
@@ -19,7 +35,7 @@
                 <tr class="border-top border-muted">
                   <th class="py-3">付款狀態</th>
                   <td>
-                    <span v-if="order.paid" class="text-success">已付款</span>
+                    <span v-if="order.paid" class="text-success"><font-awesome-icon class="text-success mr-2" :icon="['fas', 'check-circle']"/>已付款</span>
                     <span v-else class="text-muted">未付款</span>
                   </td>
                 </tr>
@@ -41,7 +57,7 @@
             <button type="button" v-else class="btn btn-danger w-100 mt-3" @click="checkout">前往前帳</button>
           </section>
         </div>
-        <div class="col-6 text-left">
+        <div class="col-lg-6 col-md-8 text-left mt-5">
           <section class="p-3">
             <h3 class="mb-3">顧客資訊</h3>
             <table class="w-100 h5">
@@ -114,6 +130,11 @@ export default {
         .then(res => {
           this.getOrder();
           this.isCheckout = true;
+          document.querySelector('.order-comfirmation').classList.remove('alert-success');
+          document.querySelector('.order-comfirmation').classList.add('alert-dark');
+          document.querySelector('.finished-reservation').classList.remove('alert-muted');
+          document.querySelector('.finished-reservation').classList.add('alert-success');
+          this.$bus.$emit('updateCart');
         })
         .catch(error => {
           console.log('error:', error);

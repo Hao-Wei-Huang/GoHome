@@ -1,12 +1,13 @@
 <template>
-  <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container  align-items-end ">
+  <div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <div class="container  align-items-md-end ">
         <router-link to="/" class="navbar-brand"><img src="../../../public/logo.png" alt="" width="100"></router-link>
+        <cart-menu class="ml-auto mr-3 d-block d-md-none"></cart-menu>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" @click='closeNav'>
           <ul class="navbar-nav nav-menu">
             <li class="nav-item">
               <router-link to="/" class="nav-link text-white h5">首頁</router-link>
@@ -14,7 +15,7 @@
             <li class="nav-item">
               <router-link to="/products" class="nav-link text-white h5">去訂房</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item d-md-block d-none">
               <cart-menu></cart-menu>
             </li>
             <li class="nav-item">
@@ -44,8 +45,14 @@ import cartMenu from '@/components/CartMenu.vue';
 export default {
   components: {
     'cart-menu': cartMenu,
+  },
+  methods: {
+    closeNav () {
+      document.querySelector('#navbarNav').classList.remove('show');
+    }
   }
 };
+
 </script>
 <style lang="scss">
 .nav-menu{

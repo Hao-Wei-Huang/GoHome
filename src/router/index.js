@@ -5,8 +5,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*',
+    redirect: '/'
+  },
+  {
     path: '/',
-    name: 'frontend',
     component: () => import('../views/frontend/Frontend.vue'),
     children: [
       {
@@ -44,7 +47,6 @@ const routes = [
   },
   {
     path: '/admin',
-    name: 'Admin',
     component: () => import('../views/backend/Admin.vue'),
     children: [
       {

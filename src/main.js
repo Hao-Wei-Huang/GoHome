@@ -1,4 +1,5 @@
-import Vue from 'vue'; // node_modules(外部套件)
+// node_modules(外部套件)
+import Vue from 'vue';
 // loading-overlay
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -25,6 +26,7 @@ import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokin
 import { faPaperPlane, faEnvelope, faCalendarAlt, faKissWinkHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // coustomer
+import moneyFilter from '@/filters/money.js';
 import '@/assets/scss/all.scss';
 import App from './App.vue';
 import router from './router';
@@ -32,13 +34,13 @@ import router from './router';
 Vue.config.productionTip = false;
 window.$ = $;
 Vue.prototype.$bus = new Vue();
-Vue.component('loading', Loading);
+Vue.component('Loading', Loading);
 // 加到vue的原型裡
 Vue.use(VueAxios, axios);
 Vue.use(VueAwesomeSwiper);
 // vee-valide
-Vue.component('validationObserver', ValidationObserver);
-Vue.component('validationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
 
 library.add(faShoppingCart, faStar, faPaperPlane, faCheckCircle, faExclamationTriangle, faChevronCircleLeft, faChevronCircleRight, faSearch);
 // login icon
@@ -47,15 +49,11 @@ library.add(faEnvelope, faLock);
 library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMarkerAlt, faCalendarAlt, faThumbsUp, faKissWinkHeart, faHeart);
 // backend
 library.add(faEdit, faTrash, faCheck, faTimes, faPlus);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-Vue.filter('moneyFilter', num => {
-  if (num) {
-    var parts = num.toString().split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
-  }
-});
+Vue.component('FontAwesomeIcon', FontAwesomeIcon);
+
+// filters
+Vue.filter('moneyFilter', moneyFilter);
 
 // vee-validate
 Object.keys(rules).forEach((rule) => {

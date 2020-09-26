@@ -52,9 +52,9 @@
             </nav>
           </div>
           <div class="col-md-8 col-lg-9">
-            <div class="product-list">
+            <ul class="product-list">
               <template  v-for="(item) in hotels">
-                <div class="row mb-3 bg-shadow" v-if="item.options.address.city === search.destination" :key="item.title">
+                <li class="row mb-3 bg-shadow" v-if="item.options.address.city === search.destination" :key="item.title">
                   <div class="col-3 bg-lg-image cursor" :style="`background-image: url(${item.imageUrl[0]});}`"  @click="goHotel(item)">
                   </div>
                   <div class="col-9">
@@ -63,7 +63,7 @@
                         {{ item.title }}
                         <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
                       </h2>
-                      <div class="mt-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{item.options.address.city}}{{item.options.address.road}}</div>
+                      <div class="mt-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</div>
                       <p class="mt-2 flex-grow-1 ellipsis">{{ item.content }}</p>
                       <div class="text-right ">
                         <h5 class="hotel-origin-price text-danger">${{ item.origin_price | moneyFilter }}</h5>
@@ -75,9 +75,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </li>
               </template>
-            </div>
+            </ul>
           </div>
         </div>
       </div>

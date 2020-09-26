@@ -3,51 +3,6 @@
     <loading :active.sync="isLoading" ></loading>
     <div class="container mt-md-5 mt-3">
       <div class="row flex-row-reverse">
-        <!-- <div class="col-md-3 text-left px-0 px-md-3 mb-3">
-          <nav class="navbar navbar-expand-md navbar-light bg-co-primary p-0 flex-md-column align-items-md-stretch">
-            <h4 class="p-2 text-white">找旅館</h4>
-            <button class="navbar-toggler p-2 mr-2" type="button" data-toggle="collapse" data-target="#seachedData" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <font-awesome-icon class="text-white" :icon="['fas', 'search']"/>
-            </button>
-            <div class="collapse navbar-collapse" id="seachedData">
-            <form class="bg-info p-3 w-100" @submit.prevent="goHotels">
-              <div class="form-group" >
-                <label for="destination" class="">目的地</label>
-                <select class="form-control mt-1" id="destination" name="縣市" v-model="search.destination" >
-                  <option disabled value="">請選擇</option>
-                  <option value="台北市">台北市</option>
-                  <option value="台中市">台中市</option>
-                  <option value="嘉義縣">嘉義縣</option>
-                  <option value="台南市">台南市</option>
-                  <option value="高雄市">高雄市</option>
-                  <option value="屏東縣">屏東縣</option>
-                </select>
-              </div>
-              <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
-                <div>
-                  <div class="form-group">
-                    <label for="checkinDate">入住時間</label>
-                    <div class="position-relative mt-1">
-                      <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                      <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
-                    </div>
-                  </div>
-                </div>
-              </date-picker>
-              <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
-                <div class="form-group">
-                  <label for="checkoutDate">退房時間</label>
-                  <div class="position-relative mt-1">
-                    <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                    <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
-                  </div>
-                </div>
-              </date-picker>
-              <button class="btn btn-primary w-100">搜尋</button>
-            </form>
-            </div>
-          </nav>
-        </div> -->
         <div class="col-md-8 col-lg-9">
           <section>
             <h2 class="text-left mb-3">
@@ -79,21 +34,6 @@
               <span class="mr-3" v-if="hotel.options.facilities.isParking"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'parking']"/>有停車場</span>
               <span class="mr-3" v-if="hotel.options.facilities.isSmokeBan"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'smoking-ban']"/>禁止吸菸</span>
               <span class="mr-3" v-if="hotel.options.facilities.isPen"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'dog']"/>寵物可入住</span>
-              <!-- <div class="col">
-                <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isBreakfast"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'utensils']"/>提供早餐</span>
-              </div>
-              <div class="col">
-                <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isWifi"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'wifi']"/>免費無線網路</span>
-              </div>
-              <div class="col">
-                <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isParking"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'parking']"/>有停車場</span>
-              </div>
-              <div class="col">
-                <span class="mr-3" style="white-space:nowrap;" v-if="hotel.options.facilities.isSmokeBan"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'smoking-ban']"/>禁止吸菸</span>
-              </div>
-              <div class="col">
-                <span class="mr-3" style="white-space:nowrap;"  v-if="hotel.options.facilities.isPen"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'dog']"/>寵物可入住</span>
-              </div> -->
             </div>
           </section>
           <section class="mt-5">
@@ -213,21 +153,21 @@
           <section class="text-left mt-3">
             <h4>住客評價</h4>
             <div class="media mt-3">
-              <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="" class="portrait">
+              <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="頭像載入中" class="portrait">
               <div class="media-body ml-2">
                 <h5 class="mt-0 text-primary">凱凱<font-awesome-icon class="text-success ml-1" :icon="['fas', 'thumbs-up']"/></h5>
                 <p>飯店舒適，服務人員相當貼心，就像回到家一樣，如果有機會下次會再來住。</p>
               </div>
             </div>
             <div class="media mt-3">
-              <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="" class="portrait">
+              <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="頭像載入中" class="portrait">
               <div class="media-body ml-2">
                 <h5 class="mt-0 text-primary">珍妮<font-awesome-icon class="text-co-primary ml-1" :icon="['far', 'kiss-wink-heart']"/></h5>
                 <p>CP值超高，很適合情侶來住，晚上夜景相當漂亮，飯店也很乾淨，可以感受到老闆的用心。</p>
               </div>
             </div>
             <div class="media mt-3">
-              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" class="portrait">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="頭像載入中" class="portrait">
               <div class="media-body ml-2">
                 <h5 class="mt-0 text-primary">潔西卡<font-awesome-icon class="text-danger ml-1" :icon="['fas', 'heart']"/></h5>
                 <p>服務人員熱情接待，全程到我們到房間及介紹附近知名景點讓我們能玩的很盡興，食物也很好吃。</p>

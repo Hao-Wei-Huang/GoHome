@@ -2,43 +2,41 @@
   <div class="content">
     <div class="banner d-flex align-items-center justify-content-center">
       <div>
-        <div>
-          <form class="bg-light-info p-3" @submit.prevent="goHotels(search)">
-            <h2 class="text-white mb-2">
-              新的旅程從訂房開始<font-awesome-icon :icon="['far', 'paper-plane']" />
-            </h2>
-            <div class="form-row flex-column flex-md-row align-items-md-center ">
-              <div class="form-group mb-2 mb-md-0 mr-1" >
-                <select class="form-control" id="destination" name="縣市" v-model="search.destination" >
-                  <option disabled value="">前往哪裡旅遊</option>
-                  <option value="台北市">台北市</option>
-                  <option value="台中市">台中市</option>
-                  <option value="嘉義縣">嘉義縣</option>
-                  <option value="台南市">台南市</option>
-                  <option value="高雄市">高雄市</option>
-                  <option value="屏東縣">屏東縣</option>
-                </select>
-              </div>
-              <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
-                <div class="form-group mb-2 mb-md-0 mr-1">
-                  <div class="position-relative">
-                    <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                    <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
-                  </div>
-                </div>
-              </date-picker>
-              <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
-                <div class="form-group mb-2 mb-md-0 mr-1">
-                  <div class="position-relative">
-                    <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                    <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
-                  </div>
-                </div>
-              </date-picker>
-              <button class="btn btn-primary">搜尋</button>
+        <form class="bg-light-info p-3" @submit.prevent="goHotels(search)">
+          <h2 class="text-white mb-2">
+            新的旅程從訂房開始<font-awesome-icon :icon="['far', 'paper-plane']" />
+          </h2>
+          <div class="form-row flex-column flex-md-row align-items-md-center ">
+            <div class="form-group mb-2 mb-md-0 mr-1" >
+              <select class="form-control" id="destination" name="縣市" v-model="search.destination" >
+                <option disabled value="">前往哪裡旅遊</option>
+                <option value="台北市">台北市</option>
+                <option value="台中市">台中市</option>
+                <option value="嘉義縣">嘉義縣</option>
+                <option value="台南市">台南市</option>
+                <option value="高雄市">高雄市</option>
+                <option value="屏東縣">屏東縣</option>
+              </select>
             </div>
-          </form>
-        </div>
+            <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+              <div class="form-group mb-2 mb-md-0 mr-1">
+                <div class="position-relative">
+                  <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                  <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
+                </div>
+              </div>
+            </date-picker>
+            <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
+              <div class="form-group mb-2 mb-md-0 mr-1">
+                <div class="position-relative">
+                  <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                  <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
+                </div>
+              </div>
+            </date-picker>
+            <button class="btn btn-primary">搜尋</button>
+          </div>
+        </form>
       </div>
     </div>
     <div class="container-md">
@@ -135,10 +133,10 @@
                   <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
                   <div class="p-3">
                     <div class="d-flex align-items-end">
-                      <h5 class="mr-1">{{item.title}}</h5>
+                      <h5 class="mr-1">{{ item.title }}</h5>
                       <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
                     </div>
-                    <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{item.options.address.city}}{{item.options.address.road}}</span>
+                    <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
                   </div>
                 </div>
               </swiper-slide>
@@ -257,8 +255,8 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "../../assets/scss/mixin";
-@import "../../assets/scss/grid";
+@import "~@/assets/scss/mixin";
+@import "~@/assets/scss/grid";
 .banner {
   background-image: url("https://images.unsplash.com/photo-1502514841534-dceabea28dad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1064&q=80");
   height: calc(100vh - 110px);

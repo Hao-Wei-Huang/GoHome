@@ -184,7 +184,6 @@ export default {
       this.isLoading = true;
       this.$http.get(api)
         .then(res => {
-          this.isLoading = false;
           this.cart = res.data.data;
           this.cart.forEach((item, index) => {
             let hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`;
@@ -192,9 +191,11 @@ export default {
               .then(res => {
                 res.data.data.roomCount = bitToRoomCount(item.quantity);
                 this.cartHotelsData.push(res.data.data);
+                this.isLoading = false;
               })
               .catch(res => {
                 console.log('error:', res);
+                this.isLoading = false;
               })
           });
         })
@@ -211,8 +212,8 @@ export default {
       this.$http.delete(api, hotel)
         .then(res => {
           this.cartHotelsData.splice(index, 1);
-          this.isLoading = false;
           this.$bus.$emit('updateCart');
+          this.isLoading = false;
         })
         .catch(error => {
           console.log('error:', error);
@@ -245,8 +246,8 @@ export default {
       this.$http.patch(api, hotel)
         .then(res => {
           this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity);
-          this.isLoading = false;
           this.$bus.$emit('updateCart');
+          this.isLoading = false;
         })
         .catch(error => {
           console.log('error:', error);

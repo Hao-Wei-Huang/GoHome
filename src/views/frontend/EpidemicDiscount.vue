@@ -212,13 +212,15 @@ export default {
     list-style-position: inside;
   }
 }
-.application-allowance-process-item{
-  opacity: 0;
-  transition: all 1.5s ease-out;
-  transform: translateY(100px);
-}
-.animate{
-  opacity: 1;
-  transform: translateY(0);
+.application-allowance-process{
+  .application-allowance-process-item{
+    opacity: 0;
+    transition: all 1.5s ease-out;
+    transform: translateY(100px);
+  }
+  .animate{
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

@@ -4,7 +4,7 @@
       <section class="service-introduciton mt-3 mt-md-5 text-left">
         <h1 class="text-primary"><span class="d-none d-md-inline">歡迎來到</span> GoHome 客服中心</h1>
         <div class="mt-3 d-flex">
-          <img class="service-introduciton-imgage mr-3 align-self-start d-none d-md-block" src="../../../public/facebook_profile_image.png" alt="">
+          <img class="service-introduciton-image mr-3 align-self-start d-none d-md-block" src="../../../public/facebook_profile_image.png" alt="品牌 logo">
           <p>
             GoHome 營造旅客宛如回到家的感覺，讓旅客身在異鄉卻又如此熟悉，放鬆之餘依然可以享受旅程，期待能帶給旅客高品質的旅館及服務，
             如果您對於我們的旅館有任何問題或建議，可以先參考<a href="#problems" class="text-secondary">常見問題</a>，<br>如仍未能解決您的疑問，歡迎您來電或來信與我們聯絡，我們將有專人與您聯絡。您的建議將是我們進步的動力。
@@ -91,7 +91,7 @@ export default {
 
 </script>
 <style lang='scss'>
-.service-introduciton-imgage{
+.service-introduciton-image{
   width: 120px;
 }
 </style>

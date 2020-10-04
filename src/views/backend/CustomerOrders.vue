@@ -1,5 +1,8 @@
 <template>
     <div class="content mt-3">
+        <loading :active.sync="isLoading" >
+          <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
+        </loading>
         <div class="container">
           <table class="table mt-4 text-left">
             <thead class="bg-primary text-white">
@@ -12,15 +15,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item) in orders" :key="item.id">
-                  <th scope="row">{{item.created.datetime}}</th>
+              <tr v-for="item in orders" :key="item.id">
+                  <th scope="row">{{ item.created.datetime }}</th>
                   <td>
                     <div v-for="product in item.products" :key="product.product.title">
-                      <span>{{product.product.title}} 數量 : {{product.quantity}}{{product.product.unit}}</span>
+                      <span>{{ product.product.title }} 數量 : {{ product.quantity }}{{ product.product.unit }}</span>
                     </div>
                   </td>
-                  <td>{{item.payment}}</td>
-                  <td class="text-right">${{item.amount}}</td>
+                  <td>{{ item.payment }}</td>
+                  <td class="text-right">${{ item.amount }}</td>
                   <td>
                     <div class="custom-control custom-switch">
                       <input type="checkbox" class="custom-control-input" :id="item.id" @change="setOrderPayment(item)" v-model="item.paid">
@@ -46,21 +49,23 @@ export default {
     return {
       orders: [],
       pagination: {},
-      isPaid: ''
+      isPaid: '',
+      isLoading: false
     }
   },
   methods: {
     getOrders (page = 1) {
+      this.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders`
       this.$http.get(api, { params: { page } })
         .then(res => {
           this.orders = res.data.data
           this.pagination = res.data.meta.pagination
-          // this.isLoading = false;
+          this.isLoading = false
         })
-        .catch(res => {
-          console.log('error:', res)
-          // this.isLoading = false;
+        .catch(error => {
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          this.isLoading = false
         })
     },
     setOrderPayment (order) {
@@ -72,9 +77,8 @@ export default {
         .then(res => {
           this.getOrders(this.pagination.current_page)
         })
-        .catch(res => {
-          console.log('error:', res)
-          // this.isLoading = false;
+        .catch(error => {
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
         })
     }
   },

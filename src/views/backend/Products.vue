@@ -1,5 +1,8 @@
 <template>
   <div class="content mt-3">
+    <loading :active.sync="isLoading" >
+      <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
+    </loading>
     <div class="container">
       <div class="text-right">
         <button class="btn btn-primary" @click="createHotelData"><font-awesome-icon class="mr-1" :icon="['fas', 'plus']"/>新增產品</button>
@@ -72,7 +75,8 @@ export default {
           this.pagination = response.data.meta.pagination
           this.isLoading = false
         })
-        .catch(res => {
+        .catch(error => {
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
           this.isLoading = false
         })
     },
@@ -101,7 +105,9 @@ export default {
             .then(response => {
               this.getHotelData(pagination.current_page)
             })
-            .catch(res => {})
+            .catch(error => {
+              this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+            })
           break
         }
         case 'creation':
@@ -113,7 +119,7 @@ export default {
               this.getHotelData(pagination.current_page)
             })
             .catch(error => {
-              console.log(error)
+              this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
             })
           break
         }
@@ -124,8 +130,8 @@ export default {
             .then(response => {
               this.getHotelData(pagination.current_page)
             })
-            .catch(res => {
-
+            .catch(error => {
+              this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
             })
           break
         }

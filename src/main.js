@@ -23,7 +23,6 @@ import 'swiper/css/swiper.css'
 // fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faEdit, faTrash, faCheck, faTimes, faPlus, faMapMarkerAlt, faCheckCircle, faExclamationTriangle, faThumbsUp, faHeart, faChevronCircleLeft, faChevronCircleRight, faSearch, faStreetView, faHome, faPhoneAlt, faLightbulb } from '@fortawesome/free-solid-svg-icons'
-// import { fab } from '@fortawesome/free-brands-svg-icons';
 import { faPaperPlane, faEnvelope, faCalendarAlt, faKissWinkHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // coustomer
@@ -35,28 +34,14 @@ import router from './router'
 Vue.config.productionTip = false
 window.$ = $
 Vue.prototype.$bus = new Vue()
-Vue.component('Loading', Loading)
+
 // 加到vue的原型裡
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
+
 // vee-valide
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
-
-library.add(faShoppingCart, faStar, faPaperPlane, faCheckCircle, faExclamationTriangle, faChevronCircleLeft, faChevronCircleRight, faSearch)
-// login icon
-library.add(faEnvelope, faLock)
-// hotel product icon
-library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMarkerAlt, faCalendarAlt, faThumbsUp, faKissWinkHeart, faHeart, faStreetView, faHome, faPhoneAlt, faLightbulb)
-// backend
-library.add(faEdit, faTrash, faCheck, faTimes, faPlus)
-
-Vue.component('FontAwesomeIcon', FontAwesomeIcon)
-
-// filters
-Vue.filter('moneyFilter', moneyFilter)
-
-// vee-validate
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule])
 })
@@ -67,6 +52,21 @@ configure({
     invalid: 'is-invalid'
   }
 })
+
+// fontawesome
+library.add(faShoppingCart, faStar, faPaperPlane, faCheckCircle, faExclamationTriangle, faChevronCircleLeft, faChevronCircleRight, faSearch)
+// login icon
+library.add(faEnvelope, faLock)
+// hotel product icon
+library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMarkerAlt, faCalendarAlt, faThumbsUp, faKissWinkHeart, faHeart, faStreetView, faHome, faPhoneAlt, faLightbulb)
+// backend
+library.add(faEdit, faTrash, faCheck, faTimes, faPlus)
+
+Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+Vue.component('Loading', Loading)
+
+// filters
+Vue.filter('moneyFilter', moneyFilter)
 
 new Vue({
   router,

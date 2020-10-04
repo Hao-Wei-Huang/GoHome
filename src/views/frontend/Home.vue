@@ -21,7 +21,7 @@
             <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
               <div class="form-group mb-2 mb-md-0 mr-1">
                 <div class="position-relative">
-                  <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                  <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
                   <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
                 </div>
               </div>
@@ -29,7 +29,7 @@
             <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'top', visibility: 'click' }" :min-date="new Date()">
               <div class="form-group mb-2 mb-md-0 mr-1">
                 <div class="position-relative">
-                  <font-awesome-icon class="text-secondary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                  <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
                   <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
                 </div>
               </div>
@@ -317,10 +317,13 @@ export default {
 .taiwan-introduction-item-right{
   transform: translateX(100px);
 }
-.animate{
-  opacity: 1;
-  transform: translateX(0);
+.taiwan-introduction{
+  .animate{
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
 @include pad{
   .text-md-dark {
     color: #333 !important;

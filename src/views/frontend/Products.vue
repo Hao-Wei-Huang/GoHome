@@ -188,9 +188,6 @@ export default {
 .hotel-origin-price{
   text-decoration:line-through;
 }
-.cursor{
-  cursor: pointer;
-}
 .calendar-icon{
   position: absolute;
   top:0.7rem;

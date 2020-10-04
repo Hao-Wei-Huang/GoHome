@@ -131,8 +131,8 @@
               <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
                 <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
                 <div class="p-3">
-                  <div class="d-flex align-items-end">
-                    <h5 class="mr-1">{{ item.title }}</h5>
+                  <h5 class="mr-1">{{ item.title }}</h5>
+                  <div>
                     <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
                   </div>
                   <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
@@ -185,7 +185,7 @@ export default {
             slidesPerView: 2,
             spaceBetween: 0
           },
-          300: {
+          0: {
             slidesPerView: 1,
             spaceBetween: 0
           }

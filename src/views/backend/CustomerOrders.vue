@@ -37,50 +37,50 @@
 </template>
 
 <script>
-import pagination from '@/components/Pagination.vue';
+import pagination from '@/components/Pagination.vue'
 export default {
   components: {
-    pagination,
+    pagination
   },
   data () {
     return {
       orders: [],
       pagination: {},
-      isPaid: '',
+      isPaid: ''
     }
   },
   methods: {
     getOrders (page = 1) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders`
       this.$http.get(api, { params: { page } })
         .then(res => {
-          this.orders = res.data.data;
-          this.pagination = res.data.meta.pagination;
+          this.orders = res.data.data
+          this.pagination = res.data.meta.pagination
           // this.isLoading = false;
         })
         .catch(res => {
-          console.log('error:', res);
+          console.log('error:', res)
           // this.isLoading = false;
         })
     },
     setOrderPayment (order) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders/${order.id}/paid`;
+      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders/${order.id}/paid`
       if (order.paid) {
-        api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders/${order.id}/unpaid`;
+        api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/orders/${order.id}/unpaid`
       }
       this.$http.patch(api)
         .then(res => {
-          this.getOrders(this.pagination.current_page);
+          this.getOrders(this.pagination.current_page)
         })
         .catch(res => {
-          console.log('error:', res);
+          console.log('error:', res)
           // this.isLoading = false;
         })
-    },
+    }
   },
   created () {
-    this.getOrders();
-  },
+    this.getOrders()
+  }
 }
 
 </script>

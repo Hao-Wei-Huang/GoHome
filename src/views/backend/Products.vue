@@ -47,94 +47,94 @@
 </template>
 
 <script>
-import pagination from '@/components/Pagination.vue';
-import backendModal from '@/components/BackendModal.vue';
+import pagination from '@/components/Pagination.vue'
+import backendModal from '@/components/BackendModal.vue'
 // import { roomCountToBit, bitToRoomCount } from '@/room-count-transform.js';
 export default {
   components: {
     pagination,
-    'backend-modal': backendModal,
+    'backend-modal': backendModal
   },
   data () {
     return {
       hotels: [],
       pagination: {},
-      isLoading: false,
+      isLoading: false
     }
   },
   methods: {
     getHotelData (page = 1) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/products`;
-      this.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/products`
+      this.isLoading = true
       this.$http.get(api, { params: { page } })
         .then(response => {
-          this.hotels = response.data.data;
-          this.pagination = response.data.meta.pagination;
-          this.isLoading = false;
+          this.hotels = response.data.data
+          this.pagination = response.data.meta.pagination
+          this.isLoading = false
         })
         .catch(res => {
-          this.isLoading = false;
-        });
+          this.isLoading = false
+        })
     },
     editHotelData (index) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`
       this.$http.get(api)
         .then(response => {
-          this.$bus.$emit('editHotelData', index, response.data.data);
+          this.$bus.$emit('editHotelData', index, response.data.data)
         })
-        .catch(res => {});
+        .catch(res => {})
     },
     createHotelData () {
-      console.log(this.$bus);
-      this.$bus.$emit('createHotelData');
+      console.log(this.$bus)
+      this.$bus.$emit('createHotelData')
     },
     removeHotelData (index) {
-      let tempHotel = JSON.parse(JSON.stringify(this.hotels[index]));
-      this.$bus.$emit('removeHotelData', index, tempHotel);
+      const tempHotel = JSON.parse(JSON.stringify(this.hotels[index]))
+      this.$bus.$emit('removeHotelData', index, tempHotel)
     },
     comfirmModifiedHotel (index, modifiedHotel, type) {
       switch (type) {
         case 'edit':
         {
-          let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`;
+          const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`
           this.$http.patch(api, modifiedHotel)
             .then(response => {
-              this.getHotelData(pagination.current_page);
+              this.getHotelData(pagination.current_page)
             })
-            .catch(res => {});
-          break;
+            .catch(res => {})
+          break
         }
         case 'creation':
         {
-          let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product`;
-          delete modifiedHotel.id;
+          const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product`
+          delete modifiedHotel.id
           this.$http.post(api, modifiedHotel)
             .then(response => {
-              this.getHotelData(pagination.current_page);
+              this.getHotelData(pagination.current_page)
             })
             .catch(error => {
-              console.log(error);
-            });
-          break;
+              console.log(error)
+            })
+          break
         }
         case 'removal':
         {
-          let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`;
+          const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/ec/product/${this.hotels[index].id}`
           this.$http.delete(api)
             .then(response => {
-              this.getHotelData(pagination.current_page);
+              this.getHotelData(pagination.current_page)
             })
             .catch(res => {
 
-            });
-          break;
+            })
+          break
         }
       }
-    },
+    }
   },
   created () {
-    this.getHotelData();
-  },
+    this.getHotelData()
+  }
 }
 
 </script>

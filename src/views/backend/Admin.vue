@@ -36,28 +36,28 @@ export default {
   data () {
     return {
       token: '',
-      checkSuccess: false,
-    };
+      checkSuccess: false
+    }
   },
   methods: {
     checkLogin () {
-      this.token = document.cookie.replace(/(?:(?:^|.*;\s*)adminToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-      this.$http.defaults.headers.Authorization = `Bearer ${this.token}`;
-      let api = `${process.env.VUE_APP_APIPATH}auth/check`;
+      this.token = document.cookie.replace(/(?:(?:^|.*;\s*)adminToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
+      this.$http.defaults.headers.Authorization = `Bearer ${this.token}`
+      const api = `${process.env.VUE_APP_APIPATH}auth/check`
       this.$http.post(api, { api_token: this.token })
         .then(response => {
-          this.checkSuccess = true;
+          this.checkSuccess = true
         })
         .catch(error => {
-          this.$router.push('/login');
-          console.log(error);
-        });
+          this.$router.push('/login')
+          console.log(error)
+        })
     }
   },
   created () {
-    this.checkLogin();
-  },
-};
+    this.checkLogin()
+  }
+}
 </script>
 <style lang="scss">
 #app {

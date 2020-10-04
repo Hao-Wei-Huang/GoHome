@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <validation-observer v-slot="{ invalid }">
+                        <validation-observer v-slot="{invalid}">
                             <form>
                                 <div class="form-row">
                                     <div class="col-5">
@@ -27,7 +27,7 @@
                                           </div>
                                         </div>
                                       </div>
-                                      <a href="#" v-for="(item) in modifiedHotel.imageUrl" :key="item" @click.prevent="showImage(item)"><img class="w-25 m-2" :src="item" alt="飯店圖片"></a>
+                                      <a href="#" v-for="item in modifiedHotel.imageUrl" :key="item" @click.prevent="showImage(item)"><img class="w-25 m-2" :src="item" alt="飯店圖片"></a>
                                     </div>
                                     <div class="col-7">
                                         <div class="row">
@@ -36,7 +36,7 @@
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
                                                     <label for="modifiedHotelModalHotelName">飯店名稱</label>
                                                     <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelName" v-model="modifiedHotel.title" name="飯店名稱">
-                                                    <span class="invalid-feedback">{{errors[0]}}</span>
+                                                    <span class="invalid-feedback">{{ errors[0] }}</span>
                                                 </validation-provider>
                                             </div>
                                           </div>
@@ -61,14 +61,14 @@
                                                     <option value="高雄市">高雄市</option>
                                                     <option value="屏東縣">屏東縣</option>
                                                   </select>
-                                                  <span class="invalid-feedback">{{errors[0]}}</span>
+                                                  <span class="invalid-feedback">{{ errors[0] }}</span>
                                                 </validation-provider>
                                               </div>
                                               <div class="form-group col-8">
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
                                                   <label for="modifiedHotelModalHotelAddressRoad">地址</label>
                                                   <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelAddressRoad" v-model="modifiedHotel.options.address.road" name="地址">
-                                                  <span class="invalid-feedback">{{errors[0]}}</span>
+                                                  <span class="invalid-feedback">{{ errors[0] }}</span>
                                                 </validation-provider>
                                               </div>
                                             </div>
@@ -77,7 +77,7 @@
                                             <validation-provider rules="required" v-slot="{errors,classes}">
                                               <label for="modifiedHotelModalHotelAddressUrl">gooogle map url</label>
                                               <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelAddressUrl" v-model="modifiedHotel.options.address.googleMapUrl" name="gooogle map url">
-                                              <span class="invalid-feedback">{{errors[0]}}</span>
+                                              <span class="invalid-feedback">{{ errors[0] }}</span>
                                             </validation-provider>
                                           </div>
                                           <div class="col-6">
@@ -85,7 +85,7 @@
                                               <validation-provider rules="required" v-slot="{errors,classes}">
                                                 <label for="modifiedHotelModalHotelCategory">分類</label>
                                                 <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelCategory" v-model="modifiedHotel.category" name="分類">
-                                                <span class="invalid-feedback">{{errors[0]}}</span>
+                                                <span class="invalid-feedback">{{ errors[0] }}</span>
                                               </validation-provider>
                                             </div>
                                           </div>
@@ -94,7 +94,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelUnit">單位</label>
                                                       <input type="text" class="form-control" :class="classes" id="modifiedHotelModalHotelUnit" v-model="modifiedHotel.unit" name="單位">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -103,7 +103,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelOriginPrice">雙人房原價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelOriginPrice" v-model.number="modifiedHotel.origin_price" name="原價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -112,7 +112,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelPrice">雙人房售價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelPrice" v-model.number="modifiedHotel.price" name="售價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -121,7 +121,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelTripleRoomOriginPrice">三人房原價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelTripleRoomOriginPrice" v-model.number="modifiedHotel.options.roomPrice.tripleRoomOriginPrice" name="原價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -130,7 +130,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelTripleRoomPrice">三人房售價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelTripleRoomPrice" v-model.number="modifiedHotel.options.roomPrice.tripleRoomPrice" name="售價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -139,7 +139,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelQuadrupleRoomOriginPrice">四人房原價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelQuadrupleRoomOriginPrice" v-model.number="modifiedHotel.options.roomPrice.quadrupleRoomOriginPrice" name="原價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -148,7 +148,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelQuadrupleRoomPrice">四人房售價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelQuadrupleRoomPrice" v-model.number="modifiedHotel.options.roomPrice.quadrupleRoomPrice" name="售價">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -157,7 +157,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalAvailableRoomCount">空房數</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalAvailableRoomCount" v-model="modifiedHotel.options.availableRoomCount" name="空房數">
-                                                      <span class="invalid-feedback">{{errors[0]}}</span>
+                                                      <span class="invalid-feedback">{{ errors[0] }}</span>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -166,7 +166,7 @@
                                                   <validation-provider rules="required" v-slot="{errors,classes}">
                                                       <label for="modifiedHotelModalHotelRating">評價</label>
                                                       <input type="number" class="form-control" :class="classes" id="modifiedHotelModalHotelRating" v-model="modifiedHotel.options.hotelRating" name="評價">
-                                                      <small class="invalid-feedback">{{errors[0]}}</small>
+                                                      <small class="invalid-feedback">{{ errors[0] }}</small>
                                                   </validation-provider>
                                               </div>
                                           </div>
@@ -204,7 +204,7 @@
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
                                                     <label for="modifiedHotelHotelContent">飯店描述</label>
                                                     <textarea class="form-control" :class="classes" id="modifiedHotelHotelContent" rows="3" placeholder="請描述飯店相關地理位置及優勢" v-model="modifiedHotel.content" name="描述"></textarea>
-                                                    <span class="invalid-feedback">{{errors[0]}}</span>
+                                                    <span class="invalid-feedback">{{ errors[0] }}</span>
                                                 </validation-provider>
                                             </div>
                                           </div>
@@ -213,7 +213,7 @@
                                                 <validation-provider rules="required" v-slot="{errors,classes}">
                                                     <label for="modifiedHotelDescription">詳細說明</label>
                                                     <textarea class="form-control" :class="classes" id="modifiedHotelDescription" rows="3" placeholder="細節補充說明" v-model="modifiedHotel.description" name="詳述"></textarea>
-                                                    <span class="invalid-feedback">{{errors[0]}}</span>
+                                                    <span class="invalid-feedback">{{ errors[0] }}</span>
                                                 </validation-provider>
                                             </div>
                                           </div>
@@ -237,13 +237,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">{{ modalTitle }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {{modalContent}}
+                {{ modalContent }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
@@ -273,70 +273,70 @@ export default {
           roomPrice: {},
           facilities: {},
           address: {
-            city: '',
-          },
+            city: ''
+          }
         }
       },
       imageUrl: '',
       modalTitle: '',
       modalContent: '',
-      type: '',
-    };
+      type: ''
+    }
   },
   methods: {
     comfirmModifiedHotel () {
       switch (this.type) {
         case 'edit':
         {
-          let index = document.querySelector('#modifiedHotelModal').dataset.index;
-          let tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel));
-          this.$emit('comfirmmodifiedhotel', index, tempHotel, this.type);
-          break;
+          const index = document.querySelector('#modifiedHotelModal').dataset.index
+          const tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel))
+          this.$emit('comfirmmodifiedhotel', index, tempHotel, this.type)
+          break
         }
         case 'creation':
         {
-          let tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel));
-          console.log(tempHotel);
-          this.$emit('comfirmmodifiedhotel', 0, tempHotel, this.type);
-          break;
+          const tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel))
+          console.log(tempHotel)
+          this.$emit('comfirmmodifiedhotel', 0, tempHotel, this.type)
+          break
         }
         case 'removal':
         {
-          let index = document.querySelector('#removeHotelModal').dataset.index;
-          let tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel));
-          this.$emit('comfirmmodifiedhotel', index, tempHotel, this.type);
-          break;
+          const index = document.querySelector('#removeHotelModal').dataset.index
+          const tempHotel = JSON.parse(JSON.stringify(this.modifiedHotel))
+          this.$emit('comfirmmodifiedhotel', index, tempHotel, this.type)
+          break
         }
       }
     },
     showImage (imageUrl) {
-      this.imageUrl = imageUrl;
+      this.imageUrl = imageUrl
     },
     uploadFile () {
-      const uploadedFile = document.querySelector('#modifiedHotelModalFile').files[0];
-      const formData = new FormData();
-      formData.append('file', uploadedFile);
-      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage`;
+      const uploadedFile = document.querySelector('#modifiedHotelModalFile').files[0]
+      const formData = new FormData()
+      formData.append('file', uploadedFile)
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage`
       this.$http.post(api, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data'
         }
       })
         .then(res => {
-          this.modifiedHotel.imageUrl.push(res.data.data.path);
+          this.modifiedHotel.imageUrl.push(res.data.data.path)
         })
         .catch(error => {
-          console.log('error:', error);
-        });
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+        })
     },
     removeImage () {
       this.modifiedHotel.imageUrl.forEach((item, index) => {
         if (item === this.imageUrl) {
-          this.modifiedHotel.imageUrl.splice(index, 1);
-          this.imageUrl = '';
+          this.modifiedHotel.imageUrl.splice(index, 1)
+          this.imageUrl = ''
         }
-      });
-    },
+      })
+    }
   },
   created () {
 
@@ -344,27 +344,31 @@ export default {
   mounted () {
     // Receive data from vue through bus
     this.$bus.$on('createHotelData', () => {
-      this.modalTitle = '新增飯店資訊';
-      this.type = 'creation';
-      $('#modifiedHotelModal').modal('show');
-    });
+      this.modalTitle = '新增飯店資訊'
+      this.type = 'creation'
+      // eslint-disable-next-line no-undef
+      $('#modifiedHotelModal').modal('show')
+    })
     // Receive data from vue through bus
     this.$bus.$on('editHotelData', (index, modifiedHotel) => {
-      this.modifiedHotel = modifiedHotel;
-      this.modalTitle = '編輯飯店資訊';
-      this.type = 'edit';
-      document.querySelector('#modifiedHotelModal').dataset.index = index;
-      $('#modifiedHotelModal').modal('show');
-    });
+      this.modifiedHotel = modifiedHotel
+      this.modalTitle = '編輯飯店資訊'
+      this.type = 'edit'
+      document.querySelector('#modifiedHotelModal').dataset.index = index
+      // eslint-disable-next-line no-undef
+      $('#modifiedHotelModal').modal('show')
+    })
     // Receive data from table component through bus
     this.$bus.$on('removeHotelData', (index, modifiedHotel) => {
-      this.modalTitle = `確定刪除${modifiedHotel.title}?`;
-      this.modalContent = `有${modifiedHotel.options.hotelRating}顆星的評價喔,不再考慮嗎?`;
-      this.type = 'removal';
-      document.querySelector('#removeHotelModal').dataset.index = index;
-      $('#removeHotelModal').modal('show');
-    });
+      this.modalTitle = `確定刪除${modifiedHotel.title}?`
+      this.modalContent = `有${modifiedHotel.options.hotelRating}顆星的評價喔,不再考慮嗎?`
+      this.type = 'removal'
+      document.querySelector('#removeHotelModal').dataset.index = index
+      // eslint-disable-next-line no-undef
+      $('#removeHotelModal').modal('show')
+    })
     // reset modal
+    // eslint-disable-next-line no-undef
     $('#modifiedHotelModal').on('hidden.bs.modal', () => {
       this.modifiedHotel = {
         id: '',
@@ -380,11 +384,11 @@ export default {
           roomPrice: {},
           facilities: {},
           address: {
-            city: '',
-          },
-        },
-      };
-      this.imageUrl = '';
+            city: ''
+          }
+        }
+      }
+      this.imageUrl = ''
     })
   }
 }

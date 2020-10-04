@@ -2,19 +2,19 @@
   <div class="dropdown">
     <div class="text-white dropdown-toggle position-relative p-2 cursor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <font-awesome-icon class="h5" :icon="['fas', 'shopping-cart']"/>
-      <span class="cart-count text-center">{{cart.length}}</span>
+      <span class="cart-count text-center">{{ cart.length }}</span>
     </div>
     <div class="dropdown-menu p-2 cart-dropdown" aria-labelledby="dropdownMenuButton" style="z-index:1030;">
       <h5 class="text-primary">已預訂的房間</h5>
       <table class="w-100">
           <tbody>
               <tr v-for="(item) in cartHotelsData" :key="item.title">
-                  <td class="cart-ellipsis py-2">{{item.title}}</td>
-                  <td class="py-2" style="width: 40px;">{{item.roomCount.total}}{{item.unit}}</td>
+                  <td class="cart-ellipsis py-2">{{ item.title }}</td>
+                  <td class="py-2" style="width: 40px;">{{ item.roomCount.total }}{{ item.unit }}</td>
                   <td class="text-right py-2">${{
                     item.roomCount.doubleRoomCount * item.price +
                     item.roomCount.tripleRoomCount * item.options.roomPrice.tripleRoomPrice +
-                    item.roomCount.quadrupleRoomCount * item.options.roomPrice.quadrupleRoomPrice | moneyFilter}}</td>
+                    item.roomCount.quadrupleRoomCount * item.options.roomPrice.quadrupleRoomPrice | moneyFilter }}</td>
               </tr>
           </tbody>
       </table>
@@ -27,44 +27,44 @@
 </template>
 
 <script>
-import { bitToRoomCount } from '@/room-count-transform.js';
+import { bitToRoomCount } from '@/room-count-transform.js'
 export default {
   data () {
     return {
       cart: [],
-      cartHotelsData: [],
+      cartHotelsData: []
     }
   },
   methods: {
     getCartData () {
-      this.cartHotelsData = [];
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
+      this.cartHotelsData = []
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
       this.$http.get(api)
         .then(res => {
-          this.cart = res.data.data;
+          this.cart = res.data.data
           this.cart.forEach((item, index) => {
-            let hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`;
+            const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`
             this.$http.get(hotelApi)
               .then(res => {
-                res.data.data.roomCount = bitToRoomCount(item.quantity);
-                this.cartHotelsData.push(res.data.data);
+                res.data.data.roomCount = bitToRoomCount(item.quantity)
+                this.cartHotelsData.push(res.data.data)
               })
-              .catch(res => {
-                console.log('error:', res);
+              .catch(error => {
+                this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
               })
-          });
+          })
         })
         .catch(res => {
-          console.log('error:', res);
+          console.log('error:', res)
         })
-    },
+    }
   },
   created () {
-    this.getCartData();
+    this.getCartData()
     this.$bus.$on('updateCart', () => {
-      this.getCartData();
-    });
-  },
+      this.getCartData()
+    })
+  }
 }
 
 </script>

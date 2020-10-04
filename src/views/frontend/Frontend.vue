@@ -15,11 +15,14 @@
             <li class="nav-item">
               <router-link to="/products" class="nav-link text-white h5">去訂房</router-link>
             </li>
-            <li class="nav-item d-md-block d-none">
-              <cart-menu></cart-menu>
+            <li class="nav-item">
+              <router-link to="/epidemic_discount" class="nav-link text-white h5">疫情優惠</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/admin" class="nav-link text-white h5">後台管理</router-link>
+              <router-link to="/customer_service" class="nav-link text-white h5">客服中心</router-link>
+            </li>
+            <li class="nav-item d-md-block d-none">
+              <cart-menu></cart-menu>
             </li>
           </ul>
         </div>
@@ -27,9 +30,9 @@
     </nav>
     <router-view></router-view>
     <footer class="bg-primary p-4 mt-md-5 mt-3 text-white">
-      <div class="container d-flex justify-content-center flex-column flex-md-row align-items-center">
+      <div class="container d-flex justify-content-center flex-column flex-md-row align-items-start">
         <div>本平台提供訂房之服務</div>
-        <ul class="text-left">
+        <ul class="text-left ml-md-3">
           <li>聯絡我們 : <a href="tel:+886-2-24341341" class="text-white">02-2434-1341</a></li>
           <li>地址 : <a href="https://goo.gl/maps/SVxJXsa8UjMXaauN7" target="_blank" class="text-white">台北市大安區員林路一段8號</a></li>
         </ul>
@@ -39,19 +42,17 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '../components/HelloWorld.vue';
-import cartMenu from '@/components/CartMenu.vue';
+import cartMenu from '@/components/CartMenu.vue'
 export default {
   components: {
-    'cart-menu': cartMenu,
+    'cart-menu': cartMenu
   },
   methods: {
     closeNav (idName) {
-      document.querySelector(idName).classList.remove('show');
+      document.querySelector(idName).classList.remove('show')
     }
   }
-};
+}
 
 </script>
 <style lang="scss">

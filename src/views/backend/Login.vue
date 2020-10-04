@@ -35,33 +35,33 @@ export default {
     return {
       email: '',
       password: '',
-      isLoading: false,
+      isLoading: false
     }
   },
   methods: {
     login () {
-      let api = `${process.env.VUE_APP_APIPATH}auth/login`;
-      let data = {
+      const api = `${process.env.VUE_APP_APIPATH}auth/login`
+      const data = {
         email: this.email,
-        password: this.password,
+        password: this.password
       }
-      this.isLoading = true;
+      this.isLoading = true
       this.$http.post(api, data)
         .then(response => {
-          let token = response.data.token;
-          let expired = response.data.expired;
-          document.cookie = `adminToken=${token}; expires=${new Date(expired * 1000)}; path=/`;
-          this.isLoading = false;
-          this.$router.push('/admin');
+          const token = response.data.token
+          const expired = response.data.expired
+          document.cookie = `adminToken=${token}; expires=${new Date(expired * 1000)}; path=/`
+          this.isLoading = false
+          this.$router.push('/admin')
         })
         .catch(error => {
-          this.email = '';
-          this.password = '';
-          this.isLoading = false;
-          alert(error);
-        });
+          this.email = ''
+          this.password = ''
+          this.isLoading = false
+          alert(error)
+        })
     }
-  },
+  }
 }
 
 </script>

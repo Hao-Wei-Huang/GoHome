@@ -26,11 +26,11 @@
               <tbody>
                 <tr class="border-top border-muted">
                   <th class="py-3" style="width:180px">訂單編號</th>
-                  <td style="word-break: break-all;">{{order.id}}</td>
+                  <td style="word-break: break-all;">{{ order.id }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">訂單成立時間</th>
-                  <td>{{order.created.datetime}}</td>
+                  <td>{{ order.created.datetime }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">付款狀態</th>
@@ -43,13 +43,13 @@
                   <th class="py-3">旅館項目</th>
                   <td>
                     <div v-for="product in order.products" :key="product.product.title">
-                      {{product.product.title}} : {{computedRoomCount(product.quantity)}}{{product.product.unit}}
+                      {{ product.product.title }} : {{ computedRoomCount(product.quantity) }}{{ product.product.unit }}
                     </div>
                   </td>
                 </tr>
                 <tr>
                   <th class="py-3">總計:</th>
-                  <td class="text-right h4">TWD <span class="text-success">{{amount | moneyFilter}}</span></td>
+                  <td class="text-right h4">TWD <span class="text-success">{{ amount | moneyFilter }}</span></td>
                 </tr>
               </tbody>
             </table>
@@ -64,23 +64,23 @@
               <tbody>
                 <tr class="border-top border-muted">
                   <th class="py-3" style="width:180px">姓名</th>
-                  <td style="word-break: break-all;">{{order.user.name}}</td>
+                  <td style="word-break: break-all;">{{ order.user.name }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">信箱帳號</th>
-                  <td>{{order.user.email}}</td>
+                  <td>{{ order.user.email }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">電話</th>
-                  <td>{{order.user.tel}}</td>
+                  <td>{{ order.user.tel }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">付款方式</th>
-                  <td>{{order.payment}}</td>
+                  <td>{{ order.payment }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">留言</th>
-                  <td>{{order.message}}</td>
+                  <td>{{ order.message }}</td>
                 </tr>
               </tbody>
             </table>
@@ -92,59 +92,59 @@
 </template>
 
 <script>
-import { bitToRoomCount } from '@/room-count-transform.js';
+import { bitToRoomCount } from '@/room-count-transform.js'
 export default {
   data () {
     return {
       order: {
         user: {},
-        created: {},
+        created: {}
       },
       orderId: '',
       amount: '',
-      isCheckout: false,
-    };
+      isCheckout: false
+    }
   },
   methods: {
     getOrderId () {
-      this.orderId = this.$route.params.orderId;
-      this.amount = this.$route.params.amount;
+      this.orderId = this.$route.params.orderId
+      this.amount = this.$route.params.amount
     },
     getOrder () {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}`
       this.$http.get(api)
         .then(res => {
-          this.order = res.data.data;
+          this.order = res.data.data
         })
         .catch(error => {
-          console.log('error:', error);
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
         })
     },
     computedRoomCount (quantity) {
-      let roomCount = bitToRoomCount(quantity);
-      return roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount;
+      const roomCount = bitToRoomCount(quantity)
+      return roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount
     },
     checkout () {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}/paying`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}/paying`
       this.$http.post(api)
         .then(res => {
-          this.getOrder();
-          this.isCheckout = true;
-          document.querySelector('.order-comfirmation').classList.remove('alert-success');
-          document.querySelector('.order-comfirmation').classList.add('alert-dark');
-          document.querySelector('.finished-reservation').classList.remove('alert-muted');
-          document.querySelector('.finished-reservation').classList.add('alert-success');
-          this.$bus.$emit('updateCart');
+          this.getOrder()
+          this.isCheckout = true
+          document.querySelector('.order-comfirmation').classList.remove('alert-success')
+          document.querySelector('.order-comfirmation').classList.add('alert-dark')
+          document.querySelector('.finished-reservation').classList.remove('alert-muted')
+          document.querySelector('.finished-reservation').classList.add('alert-success')
+          this.$bus.$emit('updateCart')
         })
         .catch(error => {
-          console.log('error:', error);
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
         })
     }
   },
   created () {
-    this.getOrderId();
-    this.getOrder();
-  },
+    this.getOrderId()
+    this.getOrder()
+  }
 }
 
 </script>

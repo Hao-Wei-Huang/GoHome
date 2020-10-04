@@ -1,8 +1,10 @@
 <template>
   <div class="content text-left">
-    <loading :active.sync="isLoading" ></loading>
+    <loading :active.sync="isLoading" >
+      <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
+    </loading>
     <div class="container">
-      <div class="row text-md-center text-left my-5">
+      <div class="row text-md-center text-left my-4">
         <div class="col-md-4">
           <div class="alert alert-success alert-rounded" role="alert">
             <span class="circle mr-2 text-center">1</span>選擇旅館
@@ -21,27 +23,27 @@
       </div>
       <div class="row flex-column align-items-center">
         <div class="col-lg-8 col-sm-10">
-          <div class="card bg-co-primary">
+          <div class="card bg-co-primary rounded-0">
             <div class="card-header">
               <h2>
-                <button class="btn btn-link btn-block text-left text-white" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-link btn-block text-left text-white" type="button" data-toggle="collapse" data-target="#roomsDetail" aria-expanded="true" aria-controls="collapseOne">
                   顯示訂房細節
                 </button>
               </h2>
             </div>
           </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne">
-            <div class="card mb-3 bg-shadow pb-2 pb-md-0" v-for="(item,index) in cartHotelsData" :key="item.id">
-              <div class="row">
+          <div id="roomsDetail" class="collapse" aria-labelledby="headingOne">
+            <div class="bg-shadow" v-for="(item,index) in cartHotelsData" :key="item.id">
+              <div class="row no-gutters">
                 <div class="col-md-5">
                   <div class="bg-md-image h-100" :style='`background-image:url(${item.imageUrl[0]})`'></div>
                 </div>
                 <div class="col-md-7">
-                  <div class="card-body d-flex flex-column justify-content-center h-100">
-                    <h5 class="card-title d-flex">{{item.title}}<button class="btn btn-outline-danger ml-auto align-self-center" @click="removeCartHotel(index)"><font-awesome-icon :icon="['fas', 'trash']"/></button></h5>
+                  <div class="d-flex flex-column justify-content-center h-100 p-3">
+                    <h5 class="d-flex">{{ item.title }}<button class="btn btn-outline-danger ml-auto align-self-center" @click="removeCartHotel(index)"><font-awesome-icon :icon="['fas', 'trash']"/></button></h5>
                     <h6 class="mb-1">奢華雙人房</h6>
                     <div class="input-group mb-3 align-items-center">
-                      ${{item.price | moneyFilter}} x
+                      ${{ item.price | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'doubleRoom')" :disabled="item.roomCount.doubleRoomCount <= 0">-</button>
                       </div>
@@ -49,11 +51,11 @@
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'doubleRoom')">+</button>
                       </div>
-                      {{item.unit}}
+                      {{ item.unit }}
                     </div>
                     <h6 class="mb-1">頂級三人房</h6>
                     <div class="input-group mb-3 align-items-center">
-                        ${{item.options.roomPrice.tripleRoomPrice | moneyFilter}} x
+                        ${{ item.options.roomPrice.tripleRoomPrice | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'tripleRoom')" :disabled="item.roomCount.tripleRoomCount <= 0">-</button>
                       </div>
@@ -61,11 +63,11 @@
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'tripleRoom')">+</button>
                       </div>
-                      {{item.unit}}
+                      {{ item.unit }}
                     </div>
                     <h6 class="mb-1">豪華四人房</h6>
-                    <div class="input-group mb-3 align-items-center">
-                        ${{item.options.roomPrice.quadrupleRoomPrice | moneyFilter}} x
+                    <div class="input-group align-items-center">
+                        ${{ item.options.roomPrice.quadrupleRoomPrice | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'quadrupleRoom')" :disabled="item.roomCount.quadrupleRoomCount <= 0">-</button>
                       </div>
@@ -73,14 +75,14 @@
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'quadrupleRoom')">+</button>
                       </div>
-                      {{item.unit}}
+                      {{ item.unit }}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <h3 class="d-flex justify-content-between my-4">金額: <span>TWD <span class="text-success">{{computeAmount | moneyFilter}}</span></span></h3>
+          <h3 class="d-flex justify-content-between my-4">金額: <span>TWD <span class="text-success">{{ computeAmount | moneyFilter }}</span></span></h3>
           <hr class="bg-success">
         </div>
         <div class="col-lg-8 col-sm-10">
@@ -92,7 +94,7 @@
                   <div class="form-group">
                     <validation-provider rules="required" v-slot="{errors,classes}">
                       <label for="customerOrderName">收件人姓名*</label>
-                      <input type="text" class="form-control" :class="classes" id="customerOrderName " v-model="costomerInfo.name" name="姓名">
+                      <input type="text" class="form-control" :class="classes" id="customerOrderName" v-model="costomerInfo.name" name="姓名">
                       <span class="invalid-feedback">{{errors[0]}}</span>
                     </validation-provider>
                   </div>
@@ -100,18 +102,18 @@
                 <div class="col-6">
                   <div class="form-group ">
                     <validation-provider rules="required|email" v-slot="{errors,classes}">
-                      <label for="customerOrderEmail ">電子信箱*</label>
-                      <input type="tel " class="form-control " :class="classes" id="customerOrderEmail " placeholder=" " v-model="costomerInfo.email" name="email">
-                      <span class="invalid-feedback">{{errors[0]}}</span>
+                      <label for="customerOrderEmail">電子信箱*</label>
+                      <input type="tel " class="form-control " :class="classes" id="customerOrderEmail" placeholder=" " v-model="costomerInfo.email" name="email">
+                      <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="form-group ">
                     <validation-provider rules="required|min:8" v-slot="{errors,classes}">
-                      <label for="customerOrderTel ">電話*</label>
-                      <input type="number " class="form-control " :class="classes" id="customerOrderTel " placeholder=" " v-model="costomerInfo.tel" name="電話">
-                      <span class="invalid-feedback">{{errors[0]}}</span>
+                      <label for="customerOrderTel">電話*</label>
+                      <input type="number " class="form-control " :class="classes" id="customerOrderTel" placeholder=" " v-model="costomerInfo.tel" name="電話">
+                      <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
@@ -127,23 +129,23 @@
                         <option value="ApplePay">ApplePay</option>
                         <option value="GooglePay">GooglePay</option>
                       </select>
-                      <span class="invalid-feedback">{{errors[0]}}</span>
+                      <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group ">
                     <validation-provider rules="required" v-slot="{errors,classes}">
-                      <label for="customerOrderAddress ">地址*</label>
-                      <input type="text" class="form-control " :class="classes" id="customerOrderAddress " placeholder=" " v-model="costomerInfo.address" name="地址">
-                      <span class="invalid-feedback">{{errors[0]}}</span>
+                      <label for="customerOrderAddress">地址*</label>
+                      <input type="text" class="form-control " :class="classes" id="customerOrderAddress" placeholder=" " v-model="costomerInfo.address" name="地址">
+                      <span class="invalid-feedback">{{ errors[0] }}</span>
                     </validation-provider>
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group ">
                     <label for="customerOrderMessage">留言</label>
-                    <textarea class="form-control " id="customerOrderMessage " rows="3 " v-model="costomerInfo.message"></textarea>
+                    <textarea class="form-control " id="customerOrderMessage" rows="3 " v-model="costomerInfo.message"></textarea>
                   </div>
                 </div>
                 <div class="col-12 d-flex">
@@ -160,7 +162,7 @@
 </template>
 
 <script>
-import { roomCountToBit, bitToRoomCount } from '@/room-count-transform.js';
+import { roomCountToBit, bitToRoomCount } from '@/room-count-transform.js'
 export default {
   data () {
     return {
@@ -172,145 +174,148 @@ export default {
         tel: '',
         address: '',
         payment: '',
-        message: '',
+        message: ''
       },
-      isLoading: false,
+      isLoading: false
     }
   },
   methods: {
     getCartData () {
-      // this.cartHotelsData = [];
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
-      this.isLoading = true;
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
       this.$http.get(api)
         .then(res => {
-          this.cart = res.data.data;
+          this.cart = res.data.data
           this.cart.forEach((item, index) => {
-            let hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`;
+            const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`
             this.$http.get(hotelApi)
               .then(res => {
-                res.data.data.roomCount = bitToRoomCount(item.quantity);
-                this.cartHotelsData.push(res.data.data);
-                this.isLoading = false;
+                res.data.data.roomCount = bitToRoomCount(item.quantity)
+                this.cartHotelsData.push(res.data.data)
+                this.isLoading = false
               })
-              .catch(res => {
-                console.log('error:', res);
-                this.isLoading = false;
+              .catch(error => {
+                this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+                this.isLoading = false
               })
-          });
+          })
         })
-        .catch(res => {
-          console.log('error:', res);
+        .catch(error => {
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          this.isLoading = false
         })
     },
     removeCartHotel (index) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping/${this.cartHotelsData[index].id}`;
-      let hotel = {
-        product: this.cartHotelsData[index].id,
-      };
-      this.isLoading = true;
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping/${this.cartHotelsData[index].id}`
+      const hotel = {
+        product: this.cartHotelsData[index].id
+      }
       this.$http.delete(api, hotel)
         .then(res => {
-          this.cartHotelsData.splice(index, 1);
-          this.$bus.$emit('updateCart');
-          this.isLoading = false;
+          this.cartHotelsData.splice(index, 1)
+          this.$bus.$emit('updateCart')
+          this.isLoading = false
         })
         .catch(error => {
-          console.log('error:', error);
-          this.isLoading = false;
-        });
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          this.isLoading = false
+        })
     },
     addCount (index, roomType) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
-      let roomCount = this.cartHotelsData[index].roomCount;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
+      const roomCount = this.cartHotelsData[index].roomCount
       switch (roomType) {
         case 'doubleRoom': {
-          roomCount.doubleRoomCount += 1;
-          break;
+          roomCount.doubleRoomCount += 1
+          break
         }
         case 'tripleRoom': {
-          roomCount.tripleRoomCount += 1;
-          break;
+          roomCount.tripleRoomCount += 1
+          break
         }
         case 'quadrupleRoom': {
-          roomCount.quadrupleRoomCount += 1;
-          break;
+          roomCount.quadrupleRoomCount += 1
+          break
         }
       };
-      let quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount);
-      let hotel = {
+      this.isLoading = true
+      const quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount)
+      const hotel = {
         product: this.cartHotelsData[index].id,
         quantity
-      };
-      this.isLoading = true;
+      }
       this.$http.patch(api, hotel)
         .then(res => {
-          this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity);
-          this.$bus.$emit('updateCart');
-          this.isLoading = false;
+          this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity)
+          this.$bus.$emit('updateCart')
+          this.isLoading = false
         })
         .catch(error => {
-          console.log('error:', error);
-          this.isLoading = false;
-        });
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          this.isLoading = false
+        })
     },
     reduceCount (index, roomType) {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`;
-      let roomCount = this.cartHotelsData[index].roomCount;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
+      const roomCount = this.cartHotelsData[index].roomCount
       switch (roomType) {
         case 'doubleRoom': {
-          roomCount.doubleRoomCount -= 1;
-          break;
+          roomCount.doubleRoomCount -= 1
+          break
         }
         case 'tripleRoom': {
-          roomCount.tripleRoomCount -= 1;
-          break;
+          roomCount.tripleRoomCount -= 1
+          break
         }
         case 'quadrupleRoom': {
-          roomCount.quadrupleRoomCount -= 1;
-          break;
+          roomCount.quadrupleRoomCount -= 1
+          break
         }
       };
-      let quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount);
+      const quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount)
       if (quantity === 0) {
-        this.removeCartHotel(index);
+        this.removeCartHotel(index)
       } else {
-        let hotel = {
+        this.isLoading = true
+        const hotel = {
           product: this.cartHotelsData[index].id,
           quantity
-        };
-        this.isLoading = true;
+        }
         this.$http.patch(api, hotel)
           .then(res => {
-            this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity);
-            this.isLoading = false;
-            this.$bus.$emit('updateCart');
+            this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity)
+            this.$bus.$emit('updateCart')
+            this.isLoading = false
           })
           .catch(error => {
-            console.log('error:', error);
-            this.isLoading = false;
-          });
+            this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+            this.isLoading = false
+          })
       }
     },
     sumbitForm () {
-      let api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders`;
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders`
       this.$http.post(api, this.costomerInfo)
         .then(res => {
           this.$router.push({
             name: 'Customer Order',
             params: {
               orderId: res.data.data.id,
-              amount: this.computeAmount,
+              amount: this.computeAmount
             }
-          });
+          })
+          this.isLoading = true
         })
         .catch(error => {
-          console.log('error:', error);
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          this.isLoading = true
         })
     }
   },
   created () {
-    this.getCartData();
+    this.getCartData()
   },
   computed: {
     computeAmount () {
@@ -320,13 +325,13 @@ export default {
           item.roomCount.doubleRoomCount * item.price +
           item.roomCount.tripleRoomCount * item.options.roomPrice.tripleRoomPrice +
           item.roomCount.quadrupleRoomCount * item.options.roomPrice.quadrupleRoomPrice
-        }, 0);
+        }, 0)
       } else {
-        return 0;
+        return 0
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

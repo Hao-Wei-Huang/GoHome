@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="toast-body">
-        {{item.message}}
+        {{ item.message }}
       </div>
     </div>
   </div>
@@ -23,38 +23,38 @@ export default {
   name: 'Toasts',
   data () {
     return {
-      messages: [],
-    };
+      messages: []
+    }
   },
   methods: {
     updateMessage (status, message) {
       // 時間戳記
-      const timestamp = Math.floor(new Date() / 1000);
+      const timestamp = Math.floor(new Date() / 1000)
       this.messages.push(
         {
           message,
           status,
-          timestamp,
-        });
-      this.removeMessageWithTiming(timestamp);
+          timestamp
+        })
+      this.removeMessageWithTiming(timestamp)
     },
     removeMessageWithTiming (timestamp) {
       setTimeout(() => {
         this.messages.forEach((item, index) => {
           if (item.timestamp === timestamp) {
-            this.messages.splice(index, 1);
+            this.messages.splice(index, 1)
           }
-        });
-      }, 5000);
+        })
+      }, 5000)
     },
     closeToasts (index) {
-      this.messages.splice(index, 1);
+      this.messages.splice(index, 1)
     }
   },
   created () {
     this.$bus.$on('pushmessage', (status, message) => {
-      this.updateMessage(status, message);
-    });
+      this.updateMessage(status, message)
+    })
   }
 }
 </script>

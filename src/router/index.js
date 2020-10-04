@@ -15,35 +15,45 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        component: () => import('../views/frontend/Home.vue'),
+        component: () => import('../views/frontend/Home.vue')
       },
       {
         path: 'products',
         name: 'Products',
-        component: () => import('../views/frontend/Products.vue'),
+        component: () => import('../views/frontend/Products.vue')
       },
       // 動態路由
       {
         path: 'product/:id',
         name: 'Product',
-        component: () => import('../views/frontend/Product.vue'),
+        component: () => import('../views/frontend/Product.vue')
       },
       {
         path: 'cart',
         name: 'Cart',
-        component: () => import('../views/frontend/Cart.vue'),
+        component: () => import('../views/frontend/Cart.vue')
       },
       {
         path: 'customer_order',
         name: 'Customer Order',
-        component: () => import('../views/frontend/CustomerOrder.vue'),
+        component: () => import('../views/frontend/CustomerOrder.vue')
       },
-    ],
+      {
+        path: 'epidemic_discount',
+        name: 'Epidemic Discount',
+        component: () => import('../views/frontend/EpidemicDiscount.vue')
+      },
+      {
+        path: 'customer_service',
+        name: 'Customer Service',
+        component: () => import('../views/frontend/CustomerService.vue')
+      }
+    ]
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/backend/Login.vue'),
+    component: () => import('../views/backend/Login.vue')
   },
   {
     path: '/admin',
@@ -52,30 +62,30 @@ const routes = [
       {
         path: '',
         name: 'Admin Products',
-        component: () => import('../views/backend/Products.vue'),
+        component: () => import('../views/backend/Products.vue')
       },
       {
         path: 'customer_order',
         name: 'Admin Customer Order',
-        component: () => import('../views/backend/CustomerOrders.vue'),
+        component: () => import('../views/backend/CustomerOrders.vue')
       },
       {
         path: 'storage',
         name: 'Admin Storage',
-        component: () => import('../views/backend/Storage.vue'),
+        component: () => import('../views/backend/Storage.vue')
       },
       {
         path: 'cupon',
         name: 'Admin Cupon',
-        component: () => import('../views/backend/Cupon.vue'),
-      },
-    ],
-  },
+        component: () => import('../views/backend/Cupon.vue')
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({
   scrollBehavior () {
-    return { x: 0, y: 0 };
+    return { x: 0, y: 0 }
   },
   routes
 })

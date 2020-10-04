@@ -30,33 +30,33 @@ export default {
     return {
       storage: [],
       pagination: {}
-    };
+    }
   },
   methods: {
     getStorage (page = 1) {
-      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage`
       this.$http.get(api, { params: { page } })
         .then(res => {
-          this.storage = res.data.data;
-          this.pagination = res.data.meta.pagination;
+          this.storage = res.data.data
+          this.pagination = res.data.meta.pagination
         })
         .catch(error => {
-          console.log('error:', error);
-        });
+          console.log('error:', error)
+        })
     },
     removeImage (id) {
-      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/admin/storage/${id}`
       this.$http.delete(api)
         .then(res => {
-          this.getStorage();
+          this.getStorage()
         })
         .catch(error => {
-          console.log('error:', error);
-        });
+          console.log('error:', error)
+        })
     }
   },
   created () {
-    this.getStorage();
+    this.getStorage()
   }
 }
 

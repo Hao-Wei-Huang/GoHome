@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import toasts from '@/components/Toasts.vue';
+import toasts from '@/components/Toasts.vue'
 export default {
   components: {
-    toasts,
+    toasts
   },
   data () {
-    return {};
+    return {}
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-      <div class="container  align-items-md-end ">
+      <div class="container align-items-md-end ">
         <router-link to="/" class="navbar-brand"><img src="../../../public/logo.png" alt="" width="100"></router-link>
         <cart-menu class="ml-auto mr-3 d-block d-md-none"></cart-menu>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,16 +10,16 @@
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" @click="closeNav('#navbarNav')">
           <ul class="navbar-nav nav-menu">
             <li class="nav-item">
-              <router-link to="/" class="nav-link text-white h5">首頁</router-link>
+              <router-link to="/" class="nav-link text-white h5" :class="{'active': link === 'Home'}">首頁</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/products" class="nav-link text-white h5">去訂房</router-link>
+              <router-link to="/products" class="nav-link text-white h5" :class="{'active': link === 'Products' || link === 'Product'}">去訂房</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/epidemic_discount" class="nav-link text-white h5">疫情優惠</router-link>
+              <router-link to="/epidemic_discount" class="nav-link text-white h5" :class="{'active': link === 'Epidemic Discount'}">疫情優惠</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/customer_service" class="nav-link text-white h5">客服中心</router-link>
+              <router-link to="/customer_service" class="nav-link text-white h5" :class="{'active': link === 'Customer Service'}">客服中心</router-link>
             </li>
             <li class="nav-item d-md-block d-none">
               <cart-menu></cart-menu>
@@ -28,8 +28,8 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
-    <footer class="bg-primary p-4 mt-md-5 mt-3 text-white">
+    <router-view class="sticky-footer"></router-view>
+    <footer class="bg-primary p-4 text-white">
       <div class="container d-flex justify-content-center flex-column flex-md-row align-items-start">
         <div>本平台提供訂房之服務</div>
         <ul class="text-left ml-md-3">
@@ -44,12 +44,22 @@
 <script>
 import cartMenu from '@/components/CartMenu.vue'
 export default {
+  data () {
+    return {
+      link: 'home'
+    }
+  },
   components: {
     'cart-menu': cartMenu
   },
   methods: {
     closeNav (idName) {
       document.querySelector(idName).classList.remove('show')
+    }
+  },
+  watch: {
+    $route (to) {
+      this.link = to.name
     }
   }
 }
@@ -62,5 +72,8 @@ export default {
       color: #13c5bd !important;
     }
   }
+}
+.nav-link.active{
+  color: #13c5bd !important;
 }
 </style>

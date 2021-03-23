@@ -1,10 +1,10 @@
 <template>
-  <div class="content text-left">
+  <div class="text-left">
     <loading :active.sync="isLoading" >
       <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
     </loading>
-    <div class="container">
-      <div class="row text-md-center text-left my-4">
+    <div class="container" v-if="cart.length">
+      <div class="row text-md-center text-left my-3 my-md-5">
         <div class="col-md-4">
           <div class="alert alert-success alert-rounded" role="alert">
             <span class="circle mr-2 text-center">1</span>選擇旅館
@@ -21,12 +21,12 @@
           </div>
         </div>
       </div>
-      <div class="row flex-column align-items-center">
+      <div class="row flex-column align-items-center pb-3 pb-md-5">
         <div class="col-lg-8 col-sm-10">
-          <div class="card bg-co-primary rounded-0">
-            <div class="card-header">
+          <div class="card bg-light rounded-0">
+            <div class="card-header border-0">
               <h2>
-                <button class="btn btn-link btn-block text-left text-white" type="button" data-toggle="collapse" data-target="#roomsDetail" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#roomsDetail" aria-expanded="true" aria-controls="collapseOne">
                   顯示訂房細節
                 </button>
               </h2>
@@ -47,7 +47,7 @@
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'doubleRoom')" :disabled="item.roomCount.doubleRoomCount <= 0">-</button>
                       </div>
-                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.roomCount.doubleRoomCount">
+                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.doubleRoomCount">
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'doubleRoom')">+</button>
                       </div>
@@ -59,7 +59,7 @@
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'tripleRoom')" :disabled="item.roomCount.tripleRoomCount <= 0">-</button>
                       </div>
-                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.roomCount.tripleRoomCount">
+                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.tripleRoomCount">
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'tripleRoom')">+</button>
                       </div>
@@ -71,7 +71,7 @@
                       <div class="input-group-prepend ml-2">
                         <button class="btn btn-outline-primary" @click="reduceCount(index,'quadrupleRoom')" :disabled="item.roomCount.quadrupleRoomCount <= 0">-</button>
                       </div>
-                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.roomCount.quadrupleRoomCount">
+                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.quadrupleRoomCount">
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'quadrupleRoom')">+</button>
                       </div>
@@ -82,11 +82,11 @@
               </div>
             </div>
           </div>
-          <h3 class="d-flex justify-content-between my-4">金額: <span>TWD <span class="text-success">{{ computeAmount | moneyFilter }}</span></span></h3>
+          <h3 class="d-flex justify-content-between my-4 h4 h3-md">金額: <span>TWD <span class="text-success">{{ computeAmount | moneyFilter }}</span></span></h3>
           <hr class="bg-success">
         </div>
         <div class="col-lg-8 col-sm-10">
-          <h3>顧客資訊</h3>
+          <h3 class="h4 h3-md">顧客資訊</h3>
           <validation-observer v-slot="{ invalid }">
             <form @submit.prevent="sumbitForm" class="mt-4">
               <div class="form-row">
@@ -158,6 +158,10 @@
         </div>
       </div>
     </div>
+    <div class="container d-flex flex-column justify-content-center align-items-center sticky-footer"  v-if="!cart.length && isHttpConnect">
+      <p class="h3 mb-4">尚未選擇旅館，GoHome 平台內有許多特色民宿與豪華酒店，請多參觀謝謝</p>
+      <router-link to="/products" class="btn btn-outline-primary">再去逛逛</router-link>
+    </div>
   </div>
 </template>
 
@@ -176,7 +180,8 @@ export default {
         payment: '',
         message: ''
       },
-      isLoading: false
+      isLoading: false,
+      isHttpConnect: false
     }
   },
   methods: {
@@ -186,6 +191,7 @@ export default {
       this.$http.get(api)
         .then(res => {
           this.cart = res.data.data
+          this.isHttpConnect = true
           this.cart.forEach((item, index) => {
             const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`
             this.$http.get(hotelApi)
@@ -199,6 +205,7 @@ export default {
                 this.isLoading = false
               })
           })
+          this.isLoading = false
         })
         .catch(error => {
           this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
@@ -306,6 +313,7 @@ export default {
               amount: this.computeAmount
             }
           })
+          this.$bus.$emit('updateCart')
           this.isLoading = true
         })
         .catch(error => {
@@ -346,7 +354,7 @@ export default {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background-color: #13c5bd;
+  background-color:#208838;
   color: #fff;
 }
 </style>

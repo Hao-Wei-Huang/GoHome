@@ -1,8 +1,11 @@
 @import "~bootstrap/scss/functions";
-@import './helper/variables';
+@import './utils/variables';
 @import "~bootstrap/scss/mixins";
 
 @import '~bootstrap/scss/bootstrap';
-@import 'mixin'; 
-@import 'layout';
-@import 'grid';
+@import './base/base';
+@import './utils/grid';
+@import './utils/helpers';
+@import './utils/bg';
+@import './utils/position';
+@import './utils/text'

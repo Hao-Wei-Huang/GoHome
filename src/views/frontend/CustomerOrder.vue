@@ -1,7 +1,10 @@
 <template>
-  <div class="content">
+  <div>
+    <loading :active.sync="isLoading" >
+      <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
+    </loading>
     <div class="container">
-      <div class="row text-md-center text-left my-5">
+      <div class="row text-md-center text-left my-3 my-md-5">
         <div class="col-md-4">
           <div class="alert alert-dark alert-rounded" role="alert">
             <span class="circle mr-2 text-center">1</span>選擇旅館
@@ -18,11 +21,11 @@
           </div>
         </div>
       </div>
-      <div class="row flex-column align-items-center">
+      <div class="row flex-column align-items-center mb-3 mb-md-5">
         <div class="col-lg-6 col-md-8 text-left">
           <section class="bg-shadow p-3">
-            <h3 class="mb-3">旅館訂單資訊</h3>
-            <table class="w-100 h5">
+            <h3 class="h4 h3-md mb-3">旅館訂單資訊</h3>
+            <table class="w-100 h6 h5-md">
               <tbody>
                 <tr class="border-top border-muted">
                   <th class="py-3" style="width:180px">訂單編號</th>
@@ -49,7 +52,7 @@
                 </tr>
                 <tr>
                   <th class="py-3">總計:</th>
-                  <td class="text-right h4">TWD <span class="text-success">{{ amount | moneyFilter }}</span></td>
+                  <td class="text-right h5 h4-md">TWD <span class="text-success">{{ amount | moneyFilter }}</span></td>
                 </tr>
               </tbody>
             </table>
@@ -59,8 +62,8 @@
         </div>
         <div class="col-lg-6 col-md-8 text-left mt-5">
           <section class="p-3">
-            <h3 class="mb-3">顧客資訊</h3>
-            <table class="w-100 h5">
+            <h3 class="h4 h3-md mb-3">顧客資訊</h3>
+            <table class="w-100 h6 h5-md">
               <tbody>
                 <tr class="border-top border-muted">
                   <th class="py-3" style="width:180px">姓名</th>
@@ -102,7 +105,8 @@ export default {
       },
       orderId: '',
       amount: '',
-      isCheckout: false
+      isCheckout: false,
+      isLoading: false
     }
   },
   methods: {
@@ -125,16 +129,19 @@ export default {
       return roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount
     },
     checkout () {
+      this.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/orders/${this.orderId}/paying`
       this.$http.post(api)
         .then(res => {
+          this.isLoading = false
           this.getOrder()
           this.isCheckout = true
-          document.querySelector('.order-comfirmation').classList.remove('alert-success')
-          document.querySelector('.order-comfirmation').classList.add('alert-dark')
-          document.querySelector('.finished-reservation').classList.remove('alert-muted')
-          document.querySelector('.finished-reservation').classList.add('alert-success')
+          // document.querySelector('.order-comfirmation').classList.remove('alert-success')
+          // document.querySelector('.order-comfirmation').classList.add('alert-dark')
+          // document.querySelector('.finished-reservation').classList.remove('alert-muted')
+          // document.querySelector('.finished-reservation').classList.add('alert-success')
           this.$bus.$emit('updateCart')
+          this.$router.push('/finished_customer_order')
         })
         .catch(error => {
           this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)

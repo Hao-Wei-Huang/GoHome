@@ -1,0 +1,26 @@
+.text-line-through{
+  text-decoration: line-through;
+}
+.text-underline{
+  text-decoration:underline;
+}
+.line-height-l{
+  line-height: 3rem;
+}
+
+@include media-breakpoint-up(lg) {
+  .h1-lg { font-size: $h1-font-size; }
+  .h2-lg { font-size: $h2-font-size; }
+  .h3-lg { font-size: $h3-font-size; }
+  .h4-lg { font-size: $h4-font-size; }
+  .h5-lg { font-size: $h5-font-size; }
+  .h6-lg { font-size: $h6-font-size; }
+}
+@include media-breakpoint-up(md) {
+  .h1-md { font-size: $h1-font-size; }
+  .h2-md { font-size: $h2-font-size; }
+  .h3-md { font-size: $h3-font-size; }
+  .h4-md { font-size: $h4-font-size; }
+  .h5-md { font-size: $h5-font-size; }
+  .h6-md { font-size: $h6-font-size; }
+}

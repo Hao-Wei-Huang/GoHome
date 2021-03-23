@@ -1,5 +1,5 @@
 <template>
-  <div class="content text-left">
+  <div class="text-left">
     <loading :active.sync="isLoading" >
       <font-awesome-icon class="h1 text-primary ld ld-bounce" :icon="['fas', 'home']"/>
     </loading>
@@ -7,7 +7,7 @@
       <div class="row flex-row-reverse">
         <div class="col-md-8 col-lg-9">
           <section>
-            <h2 class="mb-2">
+            <h2 class="h3 h2-md mb-2">
               {{ hotel.title }}
               <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(hotel.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
             </h2>
@@ -29,7 +29,7 @@
             </p>
           </section>
           <section class="mt-5">
-            <h3 class="mb-3">飯店設施</h3>
+            <h3 class="h4 h3-md mb-3">飯店設施</h3>
             <div class="text-primary">
               <span class="mr-3" v-if="hotel.options.facilities.isBreakfast"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'utensils']"/>提供早餐</span>
               <span class="mr-3" v-if="hotel.options.facilities.isWifi"><font-awesome-icon class="mr-2 text-secondary" :icon="['fas', 'wifi']"/>免費無線網路</span>
@@ -39,7 +39,7 @@
             </div>
           </section>
           <section class="mt-5">
-            <h3 class="mb-3">空房資訊</h3>
+            <h3 class="h4 h3-md mb-3">空房資訊</h3>
             <table class="table">
               <thead>
                 <tr class="bg-primary text-white">
@@ -156,7 +156,7 @@
             <iframe :src="hotel.options.address.googleMapUrl" width="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
           </section>
           <section class="text-left mt-3">
-            <h4>住客評價</h4>
+            <h3 class="h4 h3-md">住客評價</h3>
             <div class="media mt-3">
               <img src="https://randomuser.me/api/portraits/men/27.jpg" alt="頭像載入中" class="portrait">
               <div class="media-body ml-2">
@@ -181,13 +181,13 @@
           </section>
         </div>
       </div>
-      <section class="relative-hotels mt-3 mt-md-5">
-        <h3 class="mb-3">其他人還看過這些飯店</h3>
+      <section class="relative-hotels py-3 py-md-5">
+        <h3 class="h4 h3-md mb-3">其他人還看過這些飯店</h3>
         <swiper class="swiper row p-1" :options="swiperOption" v-if="hotels.length > 0">
           <template v-for="item in hotels">
             <swiper-slide class="col-sm-6 col-md-4 col-lg-3 cursor" :key="item.id">
               <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
-                <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
+                <div class="bg-md-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
                 <div class="p-3">
                   <h5 class="mr-1">{{ item.title }}</h5>
                   <div>
@@ -450,6 +450,14 @@ export default {
     },
     checkoutDate () {
       return this.formateDate(this.search.range.end)
+    }
+  },
+  watch: {
+    $route () {
+      this.getHotelID()
+      this.getHotel()
+      this.getCartData()
+      this.getSearchDate()
     }
   }
 }

@@ -1,61 +1,58 @@
 <template>
-  <div class="content">
-    <div class="container">
-      <section class="service-introduciton mt-3 mt-md-5 text-left">
-        <h1 class="text-primary"><span class="d-none d-md-inline">歡迎來到</span> GoHome 客服中心</h1>
-        <div class="mt-3 d-flex">
-          <img class="service-introduciton-image mr-3 align-self-start d-none d-md-block" src="../../../public/facebook_profile_image.png" alt="品牌 logo">
-          <p>
-            GoHome 營造旅客宛如回到家的感覺，讓旅客身在異鄉卻又如此熟悉，放鬆之餘依然可以享受旅程，期待能帶給旅客高品質的旅館及服務，
-            如果您對於我們的旅館有任何問題或建議，可以先參考<a href="#problems" class="text-secondary">常見問題</a>，<br>如仍未能解決您的疑問，歡迎您來電或來信與我們聯絡，我們將有專人與您聯絡。您的建議將是我們進步的動力。
-          </p>
-        </div>
-      </section>
-      <section class="mt-3 mt-md-5 text-left">
-        <h2 class="h3"><font-awesome-icon class="mr-2" :icon="['fas', 'phone-alt']"/>聯絡我們</h2>
-        <table class="table w-auto mt-3">
-          <tbody>
-            <tr>
-              <th class="border-top-0 border-bottom border-primary">
-                客服專線
-              </th>
-              <td class="border-top-0 border-bottom border-primary">
-                <a href="tel:+886-800-989989">0800-989-989</a>
-              </td>
-            </tr>
-            <tr>
-              <th class="border-top-0 border-bottom border-primary">
-                服務時間
-              </th>
-              <td class="border-top-0 border-bottom border-primary">
-                週一至週五 9:30~17:00
-                (例假日及午休 12:30~13:30 暫停服務)
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <section class="mt-3 mt-md-5 text-left">
-        <h2 class="h3"><font-awesome-icon class="mr-2" :icon="['fas', 'lightbulb']"/>你問我答 - 常見問題</h2>
-        <div class="mt-3" id="problems">
-          <div class="card" v-for="(item,index) in problems" :key="item.problem">
-            <div class="card-header bg-primary">
-              <h2 class="mb-0">
-                <button class="btn btn-block text-left text-white" type="button" data-toggle="collapse" :data-target="`#problem${index}`">
-                  {{ item.problem }}
-                </button>
-              </h2>
-            </div>
-
-            <div :id="`problem${index}`" class="collapse" data-parent="#problems">
-              <div class="card-body">
-                {{ item.answer }}
-              </div>
+  <div class="container">
+    <section class="service-introduciton mt-3 mt-md-5 text-left">
+      <h2 class="h3 h2-md text-primary"><span class="d-none d-md-inline">歡迎來到</span> GoHome 客服中心</h2>
+      <div class="mt-3 d-flex">
+        <img class="service-introduciton-image mr-3 align-self-start d-none d-md-block" src="../../../public/facebook_profile_image.png" alt="品牌 logo">
+        <p>
+          GoHome 營造旅客宛如回到家的感覺，讓旅客身在異鄉卻又如此熟悉，放鬆之餘依然可以享受旅程，期待能帶給旅客高品質的旅館及服務，
+          如果您對於我們的旅館有任何問題或建議，可以先參考<a href="#problems" class="text-secondary">常見問題</a>，<br>如仍未能解決您的疑問，歡迎您來電或來信與我們聯絡，我們將有專人與您聯絡。您的建議將是我們進步的動力。
+        </p>
+      </div>
+    </section>
+    <section class="mt-3 mt-md-5 text-left">
+      <h2 class="h4 h2-md"><font-awesome-icon class="mr-2" :icon="['fas', 'phone-alt']"/>聯絡我們</h2>
+      <table class="table w-auto mt-3">
+        <tbody>
+          <tr>
+            <th class="border-top-0 border-bottom border-primary">
+              客服專線
+            </th>
+            <td class="border-top-0 border-bottom border-primary">
+              <a href="tel:+886-800-989989">0800-989-989</a>
+            </td>
+          </tr>
+          <tr>
+            <th class="border-top-0 border-bottom border-primary">
+              服務時間
+            </th>
+            <td class="border-top-0 border-bottom border-primary">
+              週一至週五 9:30~17:00
+              (例假日及午休 12:30~13:30 暫停服務)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="my-3 my-md-5 text-left">
+      <h2 class="h4 h2-md"><font-awesome-icon class="mr-2" :icon="['fas', 'lightbulb']"/>你問我答 - 常見問題</h2>
+      <div class="mt-3" id="problems">
+        <div class="card" v-for="(item,index) in problems" :key="item.problem">
+          <div class="card-header bg-primary">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left text-white" type="button" data-toggle="collapse" :data-target="`#problem${index}`">
+                {{ item.problem }}
+              </button>
+            </h2>
+          </div>
+          <div :id="`problem${index}`" class="collapse show" data-parent="#problems">
+            <div class="card-body">
+              {{ item.answer }}
             </div>
           </div>
-      </div>
-      </section>
+        </div>
     </div>
+    </section>
   </div>
 </template>
 

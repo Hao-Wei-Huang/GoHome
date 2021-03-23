@@ -25,6 +25,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faEdit, faTrash, faCheck, faTimes, faPlus, faMapMarkerAlt, faCheckCircle, faExclamationTriangle, faThumbsUp, faHeart, faChevronCircleLeft, faChevronCircleRight, faSearch, faStreetView, faHome, faPhoneAlt, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { faPaperPlane, faEnvelope, faCalendarAlt, faKissWinkHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// AOS
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 // coustomer
 import moneyFilter from '@/filters/money.js'
 import '@/assets/scss/all.scss'
@@ -61,6 +64,12 @@ library.add(faEnvelope, faLock)
 library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMarkerAlt, faCalendarAlt, faThumbsUp, faKissWinkHeart, faHeart, faStreetView, faHome, faPhoneAlt, faLightbulb)
 // backend
 library.add(faEdit, faTrash, faCheck, faTimes, faPlus)
+
+// AOS
+AOS.init({
+  duration: 1000,
+  offset: 120
+})
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)
 Vue.component('Loading', Loading)

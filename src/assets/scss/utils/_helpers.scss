@@ -1,0 +1,12 @@
+.sticky-footer{
+  min-height: calc(100vh - 200px);
+}
+.cursor{
+  cursor: pointer;
+}
+.text-line-through{
+  text-decoration: line-through;
+}
+.z-index-content{
+  z-index: $zindex-fixed;
+}

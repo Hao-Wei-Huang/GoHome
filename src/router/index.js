@@ -39,6 +39,11 @@ const routes = [
         component: () => import('../views/frontend/CustomerOrder.vue')
       },
       {
+        path: 'finished_customer_order',
+        name: 'Finished Customer Order',
+        component: () => import('../views/frontend/FinishedCustomerOrder.vue')
+      },
+      {
         path: 'epidemic_discount',
         name: 'Epidemic Discount',
         component: () => import('../views/frontend/EpidemicDiscount.vue')

@@ -18,9 +18,9 @@ const routes = [
         component: () => import('../views/frontend/Home.vue')
       },
       {
-        path: 'products',
-        name: 'Products',
-        component: () => import('../views/frontend/Products.vue')
+        path: 'products', // 對應的虛擬路徑
+        name: 'Products', // 元件對應的名稱
+        component: () => import('../views/frontend/Products.vue') // 對應元件
       },
       // 動態路由
       {
@@ -89,6 +89,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  linkExactActiveClass: 'active',
   // Pages are always top on the website.
   scrollBehavior () {
     return { x: 0, y: 0 }

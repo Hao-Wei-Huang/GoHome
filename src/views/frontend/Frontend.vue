@@ -10,16 +10,16 @@
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" @click="closeNav('#navbarNav')">
           <ul class="navbar-nav nav-menu">
             <li class="nav-item">
-              <router-link to="/" class="nav-link text-white h5" :class="{'active': link === 'Home'}">首頁</router-link>
+              <router-link to="/" class="nav-link text-white h5">首頁</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/products" class="nav-link text-white h5" :class="{'active': link === 'Products' || link === 'Product'}">去訂房</router-link>
+              <router-link to="/products" class="nav-link text-white h5">去訂房</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/epidemic_discount" class="nav-link text-white h5" :class="{'active': link === 'Epidemic Discount'}">疫情優惠</router-link>
+              <router-link to="/epidemic_discount" class="nav-link text-white h5">疫情優惠</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/customer_service" class="nav-link text-white h5" :class="{'active': link === 'Customer Service'}">客服中心</router-link>
+              <router-link to="/customer_service" class="nav-link text-white h5">客服中心</router-link>
             </li>
             <li class="nav-item d-md-block d-none">
               <cart-menu></cart-menu>
@@ -46,7 +46,6 @@ import cartMenu from '@/components/CartMenu.vue'
 export default {
   data () {
     return {
-      link: 'Home'
     }
   },
   components: {
@@ -55,11 +54,6 @@ export default {
   methods: {
     closeNav (idName) {
       document.querySelector(idName).classList.remove('show')
-    }
-  },
-  watch: {
-    $route (to) {
-      this.link = to.name
     }
   }
 }

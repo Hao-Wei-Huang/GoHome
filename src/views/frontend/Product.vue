@@ -14,11 +14,11 @@
             <div class="h5 mb-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ hotel.options.address.city }}{{ hotel.options.address.road }}</div>
             <div class="thumb">
               <!-- swiper1 -->
-              <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop" v-if="hotel.imageUrl.length > 0">
+              <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop" v-if="hotel.imageUrl.length">
                 <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
               <!-- swiper2 Thumbs -->
-              <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs" v-if="hotel.imageUrl.length > 0">
+              <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs" v-if="hotel.imageUrl.length">
                 <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
             </div>
@@ -208,12 +208,7 @@
 
 <script>
 import { roomCountToBit } from '@/room-count-transform.js'
-import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
-  name: 'carrousel',
-  components: {
-    'date-picker': DatePicker
-  },
   data () {
     return {
       hotelID: '',
@@ -385,12 +380,10 @@ export default {
       this.addHotelToCart(true)
     },
     getSearchDate () {
-      if (this.$route.query.search) {
-        if (this.$route.query.search.destination) {
-          this.search.destination = this.$route.query.search.destination
-          this.search.range.start = new Date(this.$route.query.search.range.start)
-          this.search.range.end = new Date(this.$route.query.search.range.end)
-        }
+      if (this.$route.query.search && this.$route.query.search.destination) {
+        this.search.destination = this.$route.query.search.destination
+        this.search.range.start = new Date(this.$route.query.search.range.start)
+        this.search.range.end = new Date(this.$route.query.search.range.end)
       }
     },
     goHotel (id) {
@@ -423,19 +416,6 @@ export default {
       this.hotels = this.hotels.filter(item => {
         return ((item.options.address.city === choseCites[0] || item.options.address.city === choseCites[1]) && (item.id !== this.hotel.id))
       })
-    },
-    formateDate (date) {
-      const dayList = ['日', '一', '二', '三', '四', '五', '六']
-      let month = date.getMonth() + 1
-      let day = date.getDate()
-      const dayIndex = date.getDay()
-      if (month < 10) {
-        month = '0' + month
-      }
-      if (day < 10) {
-        day = '0' + day
-      }
-      return `${date.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`
     }
   },
   created () {
@@ -446,10 +426,10 @@ export default {
   },
   computed: {
     checkinDate () {
-      return this.formateDate(this.search.range.start)
+      return this.search.range.start.getFullDate()
     },
     checkoutDate () {
-      return this.formateDate(this.search.range.end)
+      return this.search.range.end.getFullDate()
     }
   },
   watch: {

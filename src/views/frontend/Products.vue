@@ -88,11 +88,7 @@
 </template>
 
 <script>
-import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
-  components: {
-    'date-picker': DatePicker
-  },
   data () {
     return {
       hotels: [],
@@ -140,7 +136,7 @@ export default {
       document.querySelector('#seachedData').classList.remove('show')
     },
     getSearchDate () {
-      if (this.$route.query.search) {
+      if (this.$route.query.search && this.$route.query.search.destination) {
         this.search.destination = this.$route.query.search.destination
         this.search.range.start = new Date(this.$route.query.search.range.start)
         this.search.range.end = new Date(this.$route.query.search.range.end)
@@ -148,19 +144,6 @@ export default {
         this.tempSearch.range.start = new Date(this.$route.query.search.range.start)
         this.tempSearch.range.end = new Date(this.$route.query.search.range.end)
       }
-    },
-    formateDate (date) {
-      const dayList = ['日', '一', '二', '三', '四', '五', '六']
-      let month = date.getMonth() + 1
-      let day = date.getDate()
-      const dayIndex = date.getDay()
-      if (month < 10) {
-        month = '0' + month
-      }
-      if (day < 10) {
-        day = '0' + day
-      }
-      return `${date.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`
     }
   },
   created () {
@@ -169,10 +152,10 @@ export default {
   },
   computed: {
     checkinDate () {
-      return this.formateDate(this.tempSearch.range.start)
+      return this.tempSearch.range.start.getFullDate()
     },
     checkoutDate () {
-      return this.formateDate(this.tempSearch.range.end)
+      return this.tempSearch.range.end.getFullDate()
     }
   }
 }

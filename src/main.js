@@ -25,6 +25,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLock, faShoppingCart, faStar, faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faEdit, faTrash, faCheck, faTimes, faPlus, faMapMarkerAlt, faCheckCircle, faExclamationTriangle, faThumbsUp, faHeart, faChevronCircleLeft, faChevronCircleRight, faSearch, faStreetView, faHome, faPhoneAlt, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { faPaperPlane, faEnvelope, faCalendarAlt, faKissWinkHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// v-calendar
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 // AOS
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -73,10 +75,25 @@ AOS.init({
 
 Vue.component('FontAwesomeIcon', FontAwesomeIcon)
 Vue.component('Loading', Loading)
+Vue.component('date-picker', DatePicker)
 
 // filters
 Vue.filter('moneyFilter', moneyFilter)
-
+// Prototype
+// eslint-disable-next-line no-extend-native
+Date.prototype.getFullDate = function () {
+  const dayList = ['日', '一', '二', '三', '四', '五', '六']
+  let month = this.getMonth() + 1
+  let day = this.getDate()
+  const dayIndex = this.getDay()
+  if (month < 10) {
+    month = '0' + month
+  }
+  if (day < 10) {
+    day = '0' + day
+  }
+  return `${this.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`
+}
 new Vue({
   router,
   render: h => h(App)

@@ -46,7 +46,7 @@ import cartMenu from '@/components/CartMenu.vue'
 export default {
   data () {
     return {
-      link: 'home'
+      link: 'Home'
     }
   },
   components: {

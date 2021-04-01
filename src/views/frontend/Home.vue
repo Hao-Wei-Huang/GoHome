@@ -147,11 +147,7 @@
 </template>
 
 <script>
-import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
-  components: {
-    'date-picker': DatePicker
-  },
   data () {
     return {
       hotels: [],
@@ -207,7 +203,6 @@ export default {
       this.$router.push(`/product/${id}`)
     },
     goHotels (search) {
-      console.log(search)
       if (search.destination === '') {
         this.$bus.$emit('pushmessage', 'warning', '請選擇旅館地點')
         return
@@ -216,19 +211,6 @@ export default {
       tempSearch.range.start = search.range.start.getTime()
       tempSearch.range.end = search.range.end.getTime()
       this.$router.push({ path: '/products', query: { search: tempSearch } })
-    },
-    formateDate (date) {
-      const dayList = ['日', '一', '二', '三', '四', '五', '六']
-      let month = date.getMonth() + 1
-      let day = date.getDate()
-      const dayIndex = date.getDay()
-      if (month < 10) {
-        month = '0' + month
-      }
-      if (day < 10) {
-        day = '0' + day
-      }
-      return `${date.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`
     }
   },
   created () {
@@ -238,10 +220,10 @@ export default {
   },
   computed: {
     checkinDate () {
-      return this.formateDate(this.search.range.start)
+      return this.search.range.start.getFullDate()
     },
     checkoutDate () {
-      return this.formateDate(this.search.range.end)
+      return this.search.range.end.getFullDate()
     }
   }
 }

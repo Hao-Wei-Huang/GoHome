@@ -89,6 +89,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  // Pages are always top on the website.
   scrollBehavior () {
     return { x: 0, y: 0 }
   },

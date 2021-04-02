@@ -6,11 +6,7 @@
 </template>
 
 <script>
-import toasts from '@/components/Toasts.vue'
 export default {
-  components: {
-    toasts
-  },
   data () {
     return {}
   }
@@ -18,7 +14,4 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  text-align: center;
-}
 </style>

@@ -30,23 +30,41 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 // AOS
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-// coustomer
+// toasts
+import Toasts from '@/components/Toasts.vue'
+// filter
 import moneyFilter from '@/filters/money.js'
+// coustomer
 import '@/assets/scss/all.scss'
 import App from './App.vue'
 import router from './router'
 
+// production mode
 Vue.config.productionTip = false
 window.$ = $
+// bus
 Vue.prototype.$bus = new Vue()
 
-// 加到vue的原型裡
+/* plugin */
+// axios
 Vue.use(VueAxios, axios)
+// swiper
 Vue.use(VueAwesomeSwiper)
 
+/* component */
 // vee-valide
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
+// fontawesome
+Vue.component('FontAwesomeIcon', FontAwesomeIcon)
+// loading
+Vue.component('Loading', Loading)
+// v-calendar
+Vue.component('DatePicker', DatePicker)
+// toast
+Vue.component('Toasts', Toasts)
+
+// vee-valide setting
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule])
 })
@@ -58,7 +76,7 @@ configure({
   }
 })
 
-// fontawesome
+// fontawesome setting
 library.add(faShoppingCart, faStar, faPaperPlane, faCheckCircle, faExclamationTriangle, faChevronCircleLeft, faChevronCircleRight, faSearch)
 // login icon
 library.add(faEnvelope, faLock)
@@ -67,19 +85,10 @@ library.add(faUtensils, faWifi, faParking, faSmokingBan, faDog, faUser, faMapMar
 // backend
 library.add(faEdit, faTrash, faCheck, faTimes, faPlus)
 
-// AOS
-AOS.init({
-  duration: 1000,
-  offset: 120
-})
-
-Vue.component('FontAwesomeIcon', FontAwesomeIcon)
-Vue.component('Loading', Loading)
-Vue.component('date-picker', DatePicker)
-
-// filters
+/* filters */
 Vue.filter('moneyFilter', moneyFilter)
-// Prototype
+
+/* Prototype */
 // eslint-disable-next-line no-extend-native
 Date.prototype.getFullDate = function () {
   const dayList = ['日', '一', '二', '三', '四', '五', '六']
@@ -94,6 +103,13 @@ Date.prototype.getFullDate = function () {
   }
   return `${this.getFullYear()}-${month}-${day} 星期${dayList[dayIndex]}`
 }
+
+// AOS init
+AOS.init({
+  duration: 800,
+  offset: 100
+})
+
 new Vue({
   router,
   render: h => h(App)

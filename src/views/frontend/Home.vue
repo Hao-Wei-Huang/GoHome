@@ -18,19 +18,15 @@
             </select>
           </div>
           <date-picker mode='range' color="teal" v-model="search.range" :popover="{ placement: 'bottom', visibility: 'click' }" :min-date="new Date()">
-            <div class="form-group mb-2 mb-md-0 mr-1">
-              <div class="position-relative">
-                <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
-              </div>
+            <div class="form-group position-relative mb-2 mb-md-0 mr-1">
+              <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+              <input type="text" class="form-control pl-4 bg-white" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
             </div>
           </date-picker>
           <date-picker  mode='range' color="teal" v-model="search.range" :popover="{ placement: 'bottom', visibility: 'click' }" :min-date="new Date()">
-            <div class="form-group mb-2 mb-md-0 mr-1">
-              <div class="position-relative">
-                <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
-              </div>
+            <div class="form-group position-relative mb-2 mb-md-0 mr-1">
+              <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+              <input type="text" class="form-control pl-4 bg-white" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
             </div>
           </date-picker>
           <button class="btn btn-primary">搜尋</button>
@@ -216,8 +212,6 @@ export default {
   created () {
     this.getHotels()
   },
-  mounted () {
-  },
   computed: {
     checkinDate () {
       return this.search.range.start.getFullDate()
@@ -235,7 +229,6 @@ export default {
   height: calc(100vh - 110px);
 }
 .calendar-icon{
-  position: absolute;
   top:0.7rem;
   left:0.3rem;
 }

@@ -2,13 +2,13 @@
   <div>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
       <div class="container align-items-md-end ">
-        <router-link to="/" class="navbar-brand"><img src="../../../public/logo.png" alt="" width="100"></router-link>
+        <router-link to="/" class="navbar-brand"><img src="@/../public/logo.png" alt="" width="100"></router-link>
         <cart-menu class="ml-auto mr-3 d-block d-md-none"></cart-menu>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" @click="closeNav('#navbarNav')">
-          <ul class="navbar-nav nav-menu">
+          <ul class="navbar-nav">
             <li class="nav-item">
               <router-link to="/" class="nav-link text-white h5">首頁</router-link>
             </li>
@@ -42,32 +42,23 @@
 </template>
 
 <script>
-import cartMenu from '@/components/CartMenu.vue'
+import CartMenu from '@/components/CartMenu.vue'
 export default {
   data () {
     return {
+      isNavOpening: false
     }
   },
   components: {
-    'cart-menu': cartMenu
+    CartMenu
   },
   methods: {
-    closeNav (idName) {
-      document.querySelector(idName).classList.remove('show')
+    closeNav (id) {
+      document.querySelector(id).classList.remove('show')
     }
   }
 }
-
 </script>
 <style lang="scss">
-.nav-menu{
-  a{
-    &:hover{
-      color: #13c5bd !important;
-    }
-  }
-}
-.nav-link.active{
-  color: #13c5bd !important;
-}
+
 </style>

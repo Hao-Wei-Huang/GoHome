@@ -6,7 +6,6 @@
 
 
 // Color system
-
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -66,27 +65,28 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       $blue !default;
-$secondary:     $gray-600 !default;
+$primary:       #1F1C3F !default;
+$secondary:     #13c5bd !default;
 $success:       $green !default;
-$info:          $cyan !default;
+$info:          #FA9309 !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+$co-primary:    #F05C10   !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    "primary":    #1F1C3F,
-    "co-primary" :#F05C10,
-    "secondary":  #13c5bd,
+    "primary":    $primary,
+    "secondary":  $secondary,
     "success":    $success,
-    "info":      #FA9309,
+    "info":       $info,
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
     "dark":       $dark,
+    "co-primary": $co-primary,
     "muted":      $gray-400,
   ),
   $theme-colors

@@ -5,7 +5,7 @@
     </loading>
     <div class="container mt-3 mt-md-5">
       <div class="row flex-row-reverse">
-        <div class="col-md-8 col-lg-9">
+        <div class="col-md-8 col-lg-9" v-if="hotel.imageUrl">
           <section>
             <h2 class="h3 h2-md mb-2">
               {{ hotel.title }}
@@ -13,12 +13,12 @@
             </h2>
             <div class="h5 mb-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ hotel.options.address.city }}{{ hotel.options.address.road }}</div>
             <div class="thumb">
-              <!-- swiper1 -->
-              <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop" v-if="hotel.imageUrl.length">
+              <!-- swiper1 Top-->
+              <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
                 <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
               <!-- swiper2 Thumbs -->
-              <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs" v-if="hotel.imageUrl.length">
+              <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs">
                 <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
             </div>
@@ -107,12 +107,12 @@
               </tbody>
             </table>
             <div class="text-right">
-              <a href="#" class="btn btn-outline-primary mr-3" @click.prevent="addHotelToCart()">加入購物車</a>
+              <a href="#" class="btn btn-outline-primary mr-3" @click.prevent="addHotelToCart">加入購物車</a>
               <a href="#" class="btn btn-primary" @click.prevent="checkout">現在預定</a>
             </div>
           </section>
         </div>
-        <div class="col-md-4 col-lg-3 text-left mb-3">
+        <div class="col-md-4 col-lg-3 text-left mb-3" v-if="hotel.options">
           <section class="text-left d-md-block d-none text-white">
             <h4 class="bg-primary px-3 py-2">找旅館</h4>
             <form class="bg-primary p-3" @submit.prevent="goHotels">
@@ -183,21 +183,19 @@
       </div>
       <section class="relative-hotels py-3 py-md-5">
         <h3 class="h4 h3-md mb-3">其他人還看過這些飯店</h3>
-        <swiper class="swiper row p-1" :options="swiperOption" v-if="hotels.length > 0">
-          <template v-for="item in hotels">
-            <swiper-slide class="col-sm-6 col-md-4 col-lg-3 cursor" :key="item.id">
-              <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
-                <div class="bg-md-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
-                <div class="p-3">
-                  <h5 class="mr-1">{{ item.title }}</h5>
-                  <div>
-                    <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
-                  </div>
-                  <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
+        <swiper class="swiper row p-1" :options="swiperOption" v-if="hotels.length">
+          <swiper-slide class="col-sm-6 col-md-4 col-lg-3 cursor" v-for="item in relativeHotels" :key="item.id">
+            <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
+              <div class="bg-md-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
+              <div class="p-3">
+                <h5 class="mr-1">{{ item.title }}</h5>
+                <div>
+                  <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
                 </div>
+                <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
               </div>
-            </swiper-slide>
-          </template>
+            </div>
+          </swiper-slide>
           <div class="swiper-button-prev" slot="button-prev"><font-awesome-icon class="text-info h4" :icon="['fas', 'chevron-circle-left']"/></div>
           <div class="swiper-button-next" slot="button-next"><font-awesome-icon class="text-info h4" :icon="['fas', 'chevron-circle-right']"/></div>
         </swiper>
@@ -208,25 +206,25 @@
 
 <script>
 import { roomCountToBit } from '@/room-count-transform.js'
+// import roomCountTransformation from '@/assets/js/room-count-transformation.js'
 export default {
   data () {
     return {
       hotelID: '',
-      hotel: {
-        imageUrl: [],
-        options: {
-          hotelRating: '',
-          roomPrice: {},
-          facilities: {},
-          address: {}
-        }
-      },
+      hotel: {},
       hotels: [],
       cart: [],
       isLoading: false,
       doubleRoomCount: 0,
       tripleRoomCount: 0,
       quadrupleRoomCount: 0,
+      search: {
+        destination: '台北市',
+        range: {
+          start: new Date(),
+          end: new Date(new Date().getTime() + 86400000)
+        }
+      },
       swiperOptionTop: {
         loop: true,
         loopAdditionalSlides: 30,
@@ -241,13 +239,24 @@ export default {
         slidesPerView: 6,
         touchRatio: 0.2,
         slideToClickedSlide: true,
-        grabCursor: true
-      },
-      search: {
-        destination: '台北市',
-        range: {
-          start: new Date(),
-          end: new Date(new Date().getTime() + 86400000)
+        grabCursor: true,
+        breakpoints: {
+          992: {
+            slidesPerView: 6,
+            spaceBetween: 0
+          },
+          768: {
+            slidesPerView: 5,
+            spaceBetween: 0
+          },
+          576: {
+            slidesPerView: 4,
+            spaceBetween: 0
+          },
+          0: {
+            slidesPerView: 3,
+            spaceBetween: 0
+          }
         }
       },
       swiperOption: {
@@ -279,8 +288,15 @@ export default {
     }
   },
   methods: {
-    getHotelID () {
+    getRouterParam () {
+      // hotel ID
       this.hotelID = this.$route.params.id
+      // searched destination and date
+      if (this.$route.query.search && this.$route.query.search.destination) {
+        this.search.destination = this.$route.query.search.destination
+        this.search.range.start = new Date(this.$route.query.search.range.start)
+        this.search.range.end = new Date(this.$route.query.search.range.end)
+      }
     },
     getHotel () {
       this.isLoading = true
@@ -288,13 +304,7 @@ export default {
       this.$http.get(api)
         .then(res => {
           this.hotel = res.data.data
-          this.$nextTick(() => {
-            const swiperTop = this.$refs.swiperTop.$swiper
-            const swiperThumbs = this.$refs.swiperThumbs.$swiper
-            swiperTop.controller.control = swiperThumbs
-            swiperThumbs.controller.control = swiperTop
-          })
-          this.getHotels()
+          this.initSwiper()
           this.isLoading = false
         })
         .catch(error => {
@@ -308,7 +318,6 @@ export default {
       this.$http.get(api)
         .then(res => {
           this.hotels = res.data.data
-          this.getRelativeHotels()
         })
         .catch(error => {
           this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
@@ -379,13 +388,6 @@ export default {
     checkout () {
       this.addHotelToCart(true)
     },
-    getSearchDate () {
-      if (this.$route.query.search && this.$route.query.search.destination) {
-        this.search.destination = this.$route.query.search.destination
-        this.search.range.start = new Date(this.$route.query.search.range.start)
-        this.search.range.end = new Date(this.$route.query.search.range.end)
-      }
-    },
     goHotel (id) {
       this.$router.push(`/product/${id}`)
     },
@@ -399,30 +401,20 @@ export default {
       tempSearch.range.end = this.search.range.end.getTime()
       this.$router.push({ path: '/products', query: { search: tempSearch } })
     },
-    getRelativeHotels () {
-      const cities = ['台北市', '台中市', '嘉義縣', '台南市', '高雄市', '屏東縣']
-      const choseCites = []
-      cities.forEach((item, index) => {
-        if (this.hotel.options.address.city === item) {
-          choseCites.push(item)
-          // index end
-          if (cities.length - 1 === index) {
-            choseCites.push(cities[index - 1])
-          } else {
-            choseCites.push(cities[index + 1])
-          }
-        }
-      })
-      this.hotels = this.hotels.filter(item => {
-        return ((item.options.address.city === choseCites[0] || item.options.address.city === choseCites[1]) && (item.id !== this.hotel.id))
+    initSwiper () {
+      this.$nextTick(() => {
+        const swiperTop = this.$refs.swiperTop.$swiper
+        const swiperThumbs = this.$refs.swiperThumbs.$swiper
+        swiperTop.controller.control = swiperThumbs
+        swiperThumbs.controller.control = swiperTop
       })
     }
   },
   created () {
-    this.getHotelID()
+    this.getRouterParam()
     this.getHotel()
+    this.getHotels()
     this.getCartData()
-    this.getSearchDate()
   },
   computed: {
     checkinDate () {
@@ -430,14 +422,33 @@ export default {
     },
     checkoutDate () {
       return this.search.range.end.getFullDate()
+    },
+    relativeHotels () {
+      // The hotel data is not gotten.
+      if (!this.hotel.options || !this.hotels.length) {
+        return
+      }
+      const cities = ['台北市', '台中市', '嘉義縣', '台南市', '高雄市', '屏東縣']
+      const choseCites = []
+      const cityIndex = cities.indexOf(this.hotel.options.address.city)
+      choseCites.push(this.hotel.options.address.city)
+      // Check the city is last one.
+      if (cities.length - 1 === cityIndex) {
+        choseCites.push(cities[cityIndex - 1])
+      } else {
+        choseCites.push(cities[cityIndex + 1])
+      }
+      return this.hotels.filter(item => {
+        return ((item.options.address.city === choseCites[0] || item.options.address.city === choseCites[1]) && (item.id !== this.hotel.id))
+      })
     }
   },
   watch: {
     $route () {
-      this.getHotelID()
+      this.getRouterParam()
       this.getHotel()
+      this.getHotels()
       this.getCartData()
-      this.getSearchDate()
     }
   }
 }

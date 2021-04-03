@@ -12,7 +12,7 @@
               <button class="navbar-toggler p-2 mr-2" type="button" data-toggle="collapse" data-target="#seachedData" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <font-awesome-icon class="text-white" :icon="['fas', 'search']"/>
               </button>
-              <div class="collapse navbar-collapse text-white" id="seachedData">
+              <div class="collapse navbar-collapse text-white" id="seachedData" ref="seachedData">
                 <form class="bg-primary p-3 w-100" @submit.prevent="searchRoom">
                   <div class="form-row flex-column">
                     <div class="form-group" >
@@ -32,7 +32,7 @@
                         <div class="form-group">
                           <label for="checkinDate">入住時間</label>
                           <div class="position-relative mt-1">
-                            <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                            <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
                             <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
                           </div>
                         </div>
@@ -42,7 +42,7 @@
                       <div class="form-group">
                         <label for="checkoutDate">退房時間</label>
                         <div class="position-relative mt-1">
-                          <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                          <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
                           <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
                         </div>
                       </div>
@@ -55,8 +55,8 @@
           </div>
           <div class="col-md-8 col-lg-9">
             <ul class="product-list">
-              <template  v-for="item in hotels">
-                <li class="row no-gutters mb-3 bg-shadow cursor" v-if="item.options.address.city === search.destination" :key="item.title" @click="goHotel(item)">
+              <template>
+                <li class="row no-gutters mb-3 bg-shadow cursor" v-for="item in destinationHotels" :key="item.title" @click="goHotel(item)">
                   <div class="col-4 col-lg-3 bg-lg-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`">
                   </div>
                   <div class="col-8 col-lg-9">
@@ -133,7 +133,8 @@ export default {
       this.search.destination = this.tempSearch.destination
       this.search.range.start = this.tempSearch.range.start
       this.search.range.end = this.tempSearch.range.end
-      document.querySelector('#seachedData').classList.remove('show')
+      this.$refs.seachedData.classList.remove('show')
+      // document.querySelector('#seachedData').classList.remove('show')
     },
     getSearchDate () {
       if (this.$route.query.search && this.$route.query.search.destination) {
@@ -156,6 +157,9 @@ export default {
     },
     checkoutDate () {
       return this.tempSearch.range.end.getFullDate()
+    },
+    destinationHotels () {
+      return this.hotels.filter(item => item.options.address.city === this.search.destination)
     }
   }
 }
@@ -169,7 +173,6 @@ export default {
   -webkit-line-clamp: 3;
 }
 .calendar-icon{
-  position: absolute;
   top:0.7rem;
   left:0.3rem;
 }

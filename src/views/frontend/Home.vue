@@ -120,8 +120,8 @@
       <section class="popular-hotels py-3 py-md-5">
         <h2 class="h3 h2-md mb-5">人氣飯店推薦</h2>
         <swiper class="swiper row p-1" :options="swiperOption" v-if="hotels.length">
-          <template v-for="item in hotels">
-            <swiper-slide class="col-12 col-sm-6 col-md-4 col-lg-3  cursor" v-if="item.options.hotelRating === '5'" :key="item.id">
+          <template v-for="item in popularHotels">
+            <swiper-slide class="col-12 col-sm-6 col-md-4 col-lg-3 cursor" :key="item.id">
               <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
                 <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
                 <div class="p-3">
@@ -147,7 +147,6 @@ export default {
   data () {
     return {
       hotels: [],
-      popularHotels: [],
       search: {
         destination: '',
         range: {
@@ -218,6 +217,9 @@ export default {
     },
     checkoutDate () {
       return this.search.range.end.getFullDate()
+    },
+    popularHotels () {
+      return this.hotels.filter(item => Number(item.options.hotelRating) === 5)
     }
   }
 }

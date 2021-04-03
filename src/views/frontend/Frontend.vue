@@ -7,7 +7,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" @click="closeNav('#navbarNav')">
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav" ref="navbarNav" @click="closeNav">
           <ul class="navbar-nav">
             <li class="nav-item">
               <router-link to="/" class="nav-link text-white h5">首頁</router-link>
@@ -53,8 +53,8 @@ export default {
     CartMenu
   },
   methods: {
-    closeNav (id) {
-      document.querySelector(id).classList.remove('show')
+    closeNav () {
+      this.$refs.navbarNav.classList.remove('show')
     }
   }
 }

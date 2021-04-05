@@ -12,14 +12,14 @@
               <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(hotel.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
             </h2>
             <div class="h5 mb-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ hotel.options.address.city }}{{ hotel.options.address.road }}</div>
-            <div class="thumb">
+            <div class="thumb bg-white">
               <!-- swiper1 Top-->
               <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
-                <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
+                <swiper-slide class="bg-cover" v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
               <!-- swiper2 Thumbs -->
               <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs">
-                <swiper-slide v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
+                <swiper-slide class="bg-cover" v-for="item in hotel.imageUrl" :key="item" :style='`background-image:url(${item})`'></swiper-slide>
               </swiper>
             </div>
           </section>
@@ -59,11 +59,11 @@
                   <td>
                     <div class="input-group align-items-center justify-content-center">
                         <div class="input-group-prepend ml-2">
-                            <button class="btn btn-outline-primary" @click="doubleRoomCount -= 1" :disabled="doubleRoomCount <= 0">-</button>
+                            <button class="btn btn-outline-primary" @click="room.doubleRoomCount -= 1" :disabled="room.doubleRoomCount <= 0">-</button>
                         </div>
-                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="doubleRoomCount">
+                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="room.doubleRoomCount">
                         <div class="input-group-append mr-2">
-                            <button class="btn btn-outline-primary" @click="doubleRoomCount += 1">+</button>
+                            <button class="btn btn-outline-primary" @click="room.doubleRoomCount += 1">+</button>
                         </div>
                     </div>
                   </td>
@@ -77,11 +77,11 @@
                   <td>
                     <div class="input-group align-items-center justify-content-center">
                         <div class="input-group-prepend ml-2">
-                            <button class="btn btn-outline-primary" @click="tripleRoomCount -= 1" :disabled="tripleRoomCount <= 0">-</button>
+                            <button class="btn btn-outline-primary" @click="room.tripleRoomCount -= 1" :disabled="room.tripleRoomCount <= 0">-</button>
                         </div>
-                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="tripleRoomCount">
+                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="room.tripleRoomCount">
                         <div class="input-group-append mr-2">
-                            <button class="btn btn-outline-primary" @click="tripleRoomCount += 1">+</button>
+                            <button class="btn btn-outline-primary" @click="room.tripleRoomCount += 1">+</button>
                         </div>
                     </div>
                   </td>
@@ -95,11 +95,11 @@
                   <td>
                     <div class="input-group align-items-center justify-content-center">
                         <div class="input-group-prepend ml-2">
-                            <button class="btn btn-outline-primary" @click="quadrupleRoomCount -= 1" :disabled="quadrupleRoomCount <= 0">-</button>
+                            <button class="btn btn-outline-primary" @click="room.quadrupleRoomCount -= 1" :disabled="room.quadrupleRoomCount <= 0">-</button>
                         </div>
-                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="quadrupleRoomCount">
+                        <input type="text" class="form-control text-center hotel-room-count" readonly v-model="room.quadrupleRoomCount">
                         <div class="input-group-append mr-2">
-                            <button class="btn btn-outline-primary" @click="quadrupleRoomCount += 1">+</button>
+                            <button class="btn btn-outline-primary" @click="room.quadrupleRoomCount += 1">+</button>
                         </div>
                     </div>
                   </td>
@@ -107,8 +107,7 @@
               </tbody>
             </table>
             <div class="text-right">
-              <a href="#" class="btn btn-outline-primary mr-3" @click.prevent="addHotelToCart">加入購物車</a>
-              <a href="#" class="btn btn-primary" @click.prevent="checkout">現在預定</a>
+              <a href="#" class="btn btn-primary" @click.prevent="addHotelToCart">加入購物車</a>
             </div>
           </section>
         </div>
@@ -133,7 +132,7 @@
                   <div class="form-group">
                     <label for="checkinDate">入住時間</label>
                     <div class="position-relative mt-1">
-                      <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                      <font-awesome-icon class="calendar-icon position-absolute text-primary mr-1" :icon="['far', 'calendar-alt']"/>
                       <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
                     </div>
                   </div>
@@ -143,7 +142,7 @@
                 <div class="form-group">
                   <label for="checkoutDate">退房時間</label>
                   <div class="position-relative mt-1">
-                    <font-awesome-icon class="text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                    <font-awesome-icon class="calendar-icon position-absolute text-primary mr-1" :icon="['far', 'calendar-alt']"/>
                     <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkoutDate" v-model="checkoutDate" aria-describedby="pickerDate" readonly>
                   </div>
                 </div>
@@ -205,8 +204,8 @@
 </template>
 
 <script>
-import { roomCountToBit } from '@/room-count-transform.js'
-// import roomCountTransformation from '@/assets/js/room-count-transformation.js'
+// import { roomCountToBit } from '@/room-count-transform.js'
+import roomCountTransformation from '@/assets/js/room-count-transformation.js'
 export default {
   data () {
     return {
@@ -215,9 +214,12 @@ export default {
       hotels: [],
       cart: [],
       isLoading: false,
-      doubleRoomCount: 0,
-      tripleRoomCount: 0,
-      quadrupleRoomCount: 0,
+      room: {
+        doubleRoomCount: 0,
+        tripleRoomCount: 0,
+        quadrupleRoomCount: 0,
+        total: 0
+      },
       search: {
         destination: '台北市',
         range: {
@@ -333,60 +335,67 @@ export default {
           this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
         })
     },
-    addHotelToCart (isCheckout = false) {
+    addHotelToCart () {
       let quantity = 0
-      let isCart = false
+      let isAddedHotel = false
+      let isSameCount = false
 
-      // 數量皆為0
-      if ((this.doubleRoomCount | this.tripleRoomCount | this.quadrupleRoomCount) === 0) {
-        if (isCheckout && this.cart.length) {
-          this.$router.push('/cart')
-        } else {
-          this.$bus.$emit('pushmessage', 'warning', '請選擇房型')
-        }
-        return ''
+      // 該旅館房間數為 0
+      this.room.total = this.room.doubleRoomCount + this.room.tripleRoomCount + this.room.quadrupleRoomCount
+      if (this.room.total === 0) {
+        this.$bus.$emit('pushmessage', 'warning', '請選擇房型')
+        return
       }
+      // 將房間數編碼
+      quantity = roomCountTransformation.encode(this.room)
       // 判斷是否已經加入購物車
-      this.cart.forEach((item, cartIndex) => {
+      this.cart.forEach(item => {
         if (item.product.id === this.hotelID) {
-          if (!isCheckout) {
-            this.$bus.$emit('pushmessage', 'warning', '該旅館已經加入購物車囉')
+          isAddedHotel = true
+          // 旅館房型的數量是否相同
+          if (item.quantity === quantity) {
+            isSameCount = true
           }
-          isCart = true
         }
       })
-      if (isCart) {
-        if (isCheckout) {
-          this.$router.push('/cart')
-        }
-        return ''
+      // 數量一樣不再調整
+      if (isSameCount) {
+        this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
+        return
       }
-
-      quantity = roomCountToBit(this.doubleRoomCount, this.tripleRoomCount, this.quadrupleRoomCount)
       const hotel = {
         product: this.hotelID,
         quantity
       }
       this.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
-      this.$http.post(api, hotel)
-        .then(res => {
-          if (isCheckout) {
-            this.$router.push('/cart')
-          } else {
+      // true : patch, false : create
+      if (isAddedHotel) {
+        this.$http.patch(api, hotel)
+          .then(res => {
             this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
-          }
-          this.getCartData()
-          this.$bus.$emit('updateCart')
-          this.isLoading = false
-        })
-        .catch(error => {
-          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
-          this.isLoading = false
-        })
-    },
-    checkout () {
-      this.addHotelToCart(true)
+            this.getCartData()
+            this.$bus.$emit('updateCart')
+            this.isLoading = false
+          })
+          .catch(error => {
+            this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+            this.isLoading = false
+          })
+      } else {
+        this.$http.post(api, hotel)
+          .then(res => {
+            this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
+            this.getCartData()
+            this.$bus.$emit('updateCart')
+            this.isLoading = false
+          })
+          .catch(error => {
+            this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+            this.isLoading = false
+          })
+      }
+      return true
     },
     goHotel (id) {
       this.$router.push(`/product/${id}`)
@@ -457,13 +466,8 @@ export default {
 <style lang='scss'>
 .thumb {
   height: 480px;
-  background-color:#fff;
 }
 .swiper {
-  .swiper-slide {
-    background-size: cover;
-    background-position: center;
-  }
   &.gallery-top {
     height: 80%;
     width: 100%;
@@ -474,7 +478,6 @@ export default {
     padding: 10px 0;
   }
   &.gallery-thumbs .swiper-slide {
-    width: 25%;
     height: 100%;
     opacity: 0.6;
   }
@@ -486,9 +489,8 @@ export default {
   max-width: 60px;
 }
 .calendar-icon{
-position: absolute;
-top:0.7rem;
-left:0.3rem;
+  top:0.7rem;
+  left:0.3rem;
 }
 .portrait{
   width: 64px;

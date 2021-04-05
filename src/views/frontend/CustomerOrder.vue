@@ -22,14 +22,14 @@
         </div>
       </div>
       <div class="row flex-column align-items-center mb-3 mb-md-5">
-        <div class="col-lg-6 col-md-8 text-left">
-          <section class="bg-shadow p-3">
+        <div class="col-lg-6 col-md-8">
+          <section class="border p-3">
             <h3 class="h4 h3-md mb-3">旅館訂單資訊</h3>
-            <table class="w-100 h6 h5-md">
+            <table class="w-100 h6 h5-md text-left">
               <tbody>
                 <tr class="border-top border-muted">
-                  <th class="py-3" style="width:180px">訂單編號</th>
-                  <td style="word-break: break-all;">{{ order.id }}</td>
+                  <th style="width:180px">訂單編號</th>
+                  <td class="py-3" style="word-break: break-all;">{{ order.id }}</td>
                 </tr>
                 <tr class="border-top border-muted">
                   <th class="py-3">訂單成立時間</th>
@@ -61,9 +61,9 @@
           </section>
         </div>
         <div class="col-lg-6 col-md-8 text-left mt-5">
-          <section class="p-3">
+          <section class="p-3 border">
             <h3 class="h4 h3-md mb-3">顧客資訊</h3>
-            <table class="w-100 h6 h5-md">
+            <table class="w-100 h6 h5-md text-left">
               <tbody>
                 <tr class="border-top border-muted">
                   <th class="py-3" style="width:180px">姓名</th>

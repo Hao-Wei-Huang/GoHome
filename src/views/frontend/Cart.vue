@@ -26,14 +26,14 @@
           <div class="card bg-light rounded-0">
             <div class="card-header border-0">
               <h2>
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#roomsDetail" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#roomsDetail" aria-expanded="true">
                   顯示訂房細節
                 </button>
               </h2>
             </div>
           </div>
           <div id="roomsDetail" class="collapse" aria-labelledby="headingOne">
-            <div class="bg-shadow" v-for="(item,index) in cartHotelsData" :key="item.id">
+            <div class="border" v-for="(item,index) in cartHotelsData" :key="item.id">
               <div class="row no-gutters">
                 <div class="col-md-5">
                   <div class="bg-md-image h-100" :style='`background-image:url(${item.imageUrl[0]})`'></div>
@@ -45,9 +45,9 @@
                     <div class="input-group mb-3 align-items-center">
                       ${{ item.price | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
-                        <button class="btn btn-outline-primary" @click="reduceCount(index,'doubleRoom')" :disabled="item.roomCount.doubleRoomCount <= 0">-</button>
+                        <button class="btn btn-outline-primary" @click="reduceCount(index,'doubleRoom')" :disabled="item.room.doubleRoomCount <= 0">-</button>
                       </div>
-                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.doubleRoomCount">
+                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.room.doubleRoomCount" readonly>
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'doubleRoom')">+</button>
                       </div>
@@ -57,9 +57,9 @@
                     <div class="input-group mb-3 align-items-center">
                         ${{ item.options.roomPrice.tripleRoomPrice | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
-                        <button class="btn btn-outline-primary" @click="reduceCount(index,'tripleRoom')" :disabled="item.roomCount.tripleRoomCount <= 0">-</button>
+                        <button class="btn btn-outline-primary" @click="reduceCount(index,'tripleRoom')" :disabled="item.room.tripleRoomCount <= 0">-</button>
                       </div>
-                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.tripleRoomCount">
+                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.room.tripleRoomCount" readonly>
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'tripleRoom')">+</button>
                       </div>
@@ -69,9 +69,9 @@
                     <div class="input-group align-items-center">
                         ${{ item.options.roomPrice.quadrupleRoomPrice | moneyFilter }} x
                       <div class="input-group-prepend ml-2">
-                        <button class="btn btn-outline-primary" @click="reduceCount(index,'quadrupleRoom')" :disabled="item.roomCount.quadrupleRoomCount <= 0">-</button>
+                        <button class="btn btn-outline-primary" @click="reduceCount(index,'quadrupleRoom')" :disabled="item.room.quadrupleRoomCount <= 0">-</button>
                       </div>
-                      <input type="number" class="form-control text-center hotel-room-count" v-model="item.roomCount.quadrupleRoomCount">
+                      <input type="text" class="form-control text-center hotel-room-count" v-model="item.room.quadrupleRoomCount" readonly>
                       <div class="input-group-append mr-2">
                         <button class="btn btn-outline-primary" @click="addCount(index,'quadrupleRoom')">+</button>
                       </div>
@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import { roomCountToBit, bitToRoomCount } from '@/room-count-transform.js'
+import roomCountTransformation from '@/assets/js/room-count-transformation.js'
 export default {
   data () {
     return {
@@ -192,11 +192,11 @@ export default {
         .then(res => {
           this.cart = res.data.data
           this.isHttpConnect = true
-          this.cart.forEach((item, index) => {
+          this.cart.forEach(item => {
             const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`
             this.$http.get(hotelApi)
               .then(res => {
-                res.data.data.roomCount = bitToRoomCount(item.quantity)
+                res.data.data.room = roomCountTransformation.decode(item.quantity)
                 this.cartHotelsData.push(res.data.data)
                 this.isLoading = false
               })
@@ -231,30 +231,30 @@ export default {
     },
     addCount (index, roomType) {
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
-      const roomCount = this.cartHotelsData[index].roomCount
+      const room = this.cartHotelsData[index].room
       switch (roomType) {
         case 'doubleRoom': {
-          roomCount.doubleRoomCount += 1
+          room.doubleRoomCount += 1
           break
         }
         case 'tripleRoom': {
-          roomCount.tripleRoomCount += 1
+          room.tripleRoomCount += 1
           break
         }
         case 'quadrupleRoom': {
-          roomCount.quadrupleRoomCount += 1
+          room.quadrupleRoomCount += 1
           break
         }
       };
       this.isLoading = true
-      const quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount)
+      const quantity = roomCountTransformation.encode(room)
       const hotel = {
         product: this.cartHotelsData[index].id,
         quantity
       }
       this.$http.patch(api, hotel)
         .then(res => {
-          this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity)
+          this.cartHotelsData[index].room = roomCountTransformation.decode(res.data.data.quantity)
           this.$bus.$emit('updateCart')
           this.isLoading = false
         })
@@ -265,22 +265,22 @@ export default {
     },
     reduceCount (index, roomType) {
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
-      const roomCount = this.cartHotelsData[index].roomCount
+      const room = this.cartHotelsData[index].room
       switch (roomType) {
         case 'doubleRoom': {
-          roomCount.doubleRoomCount -= 1
+          room.doubleRoomCount -= 1
           break
         }
         case 'tripleRoom': {
-          roomCount.tripleRoomCount -= 1
+          room.tripleRoomCount -= 1
           break
         }
         case 'quadrupleRoom': {
-          roomCount.quadrupleRoomCount -= 1
+          room.quadrupleRoomCount -= 1
           break
         }
       };
-      const quantity = roomCountToBit(roomCount.doubleRoomCount, roomCount.tripleRoomCount, roomCount.quadrupleRoomCount)
+      const quantity = roomCountTransformation.encode(room)
       if (quantity === 0) {
         this.removeCartHotel(index)
       } else {
@@ -291,7 +291,7 @@ export default {
         }
         this.$http.patch(api, hotel)
           .then(res => {
-            this.cartHotelsData[index].roomCount = bitToRoomCount(res.data.data.quantity)
+            this.cartHotelsData[index].room = roomCountTransformation.decode(res.data.data.quantity)
             this.$bus.$emit('updateCart')
             this.isLoading = false
           })
@@ -330,9 +330,9 @@ export default {
       if (this.cartHotelsData.length) {
         return this.cartHotelsData.reduce((accumulator, item) => {
           return accumulator +
-          item.roomCount.doubleRoomCount * item.price +
-          item.roomCount.tripleRoomCount * item.options.roomPrice.tripleRoomPrice +
-          item.roomCount.quadrupleRoomCount * item.options.roomPrice.quadrupleRoomPrice
+          item.room.doubleRoomCount * item.price +
+          item.room.tripleRoomCount * item.options.roomPrice.tripleRoomPrice +
+          item.room.quadrupleRoomCount * item.options.roomPrice.quadrupleRoomPrice
         }, 0)
       } else {
         return 0

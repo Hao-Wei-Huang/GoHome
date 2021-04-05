@@ -1,16 +1,16 @@
 export default {
-  encode (doubleRoomCount, tripleRoomCount, quadrupleRoomCount) {
-    return doubleRoomCount | tripleRoomCount << 5 | quadrupleRoomCount << 10
+  encode (room) {
+    return room.doubleRoomCount | room.tripleRoomCount << 5 | room.quadrupleRoomCount << 10
   },
   decode (roomCountBits) {
     const doubleRoomMask = 31 // 11111
     const tripleRoomMask = 992 // 1111100000
     const quadrupleRoomMask = 31744 // 111110000000000
-    const roomCount = {}
-    roomCount.doubleRoomCount = roomCountBits & doubleRoomMask
-    roomCount.tripleRoomCount = (roomCountBits & tripleRoomMask) >> 5
-    roomCount.quadrupleRoomCount = (roomCountBits & quadrupleRoomMask) >> 10
-    roomCount.total = roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount
-    return roomCount
+    const room = {}
+    room.doubleRoomCount = roomCountBits & doubleRoomMask
+    room.tripleRoomCount = (roomCountBits & tripleRoomMask) >> 5
+    room.quadrupleRoomCount = (roomCountBits & quadrupleRoomMask) >> 10
+    room.total = room.doubleRoomCount + room.tripleRoomCount + room.quadrupleRoomCount
+    return room
   }
 }

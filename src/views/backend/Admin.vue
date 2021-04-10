@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="text-center">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container  align-items-end ">
         <a class="navbar-brand" href="#">後台管理</a>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </nav>
-    <router-view :token='token' v-if="checkSuccess"></router-view>
+    <router-view :token="token" v-if="checkSuccess"></router-view>
   </div>
 </template>
 <script>
@@ -50,7 +50,7 @@ export default {
         })
         .catch(error => {
           this.$router.push('/login')
-          console.log(error)
+          this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
         })
     }
   },
@@ -60,14 +60,4 @@ export default {
 }
 </script>
 <style lang="scss">
-#app {
-  text-align: center;
-}
-.nav-menu{
-  a{
-    &:hover{
-      color: #13c5bd !important;
-    }
-  }
-}
 </style>

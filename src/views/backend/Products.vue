@@ -52,7 +52,6 @@
 <script>
 import pagination from '@/components/Pagination.vue'
 import backendModal from '@/components/BackendModal.vue'
-// import { roomCountToBit, bitToRoomCount } from '@/room-count-transform.js';
 export default {
   components: {
     pagination,

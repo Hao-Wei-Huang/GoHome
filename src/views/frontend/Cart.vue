@@ -36,7 +36,7 @@
             <div class="border" v-for="(item,index) in cartHotelsData" :key="item.id">
               <div class="row no-gutters">
                 <div class="col-md-5">
-                  <div class="bg-md-image h-100" :style='`background-image:url(${item.imageUrl[0]})`'></div>
+                  <div class="bg-md-image bg-cover h-100" :style='`background-image:url(${item.imageUrl[0]})`'></div>
                 </div>
                 <div class="col-md-7">
                   <div class="d-flex flex-column justify-content-center h-100 p-3">
@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-          <h3 class="d-flex justify-content-between my-4 h4 h3-md">金額: <span>TWD <span class="text-success">{{ computeAmount | moneyFilter }}</span></span></h3>
+          <h3 class="d-flex justify-content-between my-4 h4 h3-md">金額: <span>TWD <span class="text-success">{{ amount | moneyFilter }}</span></span></h3>
           <hr class="bg-success">
         </div>
         <div class="col-lg-8 col-sm-10">
@@ -185,32 +185,33 @@ export default {
     }
   },
   methods: {
-    getCartData () {
+    async getCartData () {
       this.isLoading = true
+      const tempCartHotels = []
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
-      this.$http.get(api)
+      await this.$http.get(api)
         .then(res => {
           this.cart = res.data.data
           this.isHttpConnect = true
-          this.cart.forEach(item => {
-            const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${item.product.id}`
-            this.$http.get(hotelApi)
-              .then(res => {
-                res.data.data.room = roomCountTransformation.decode(item.quantity)
-                this.cartHotelsData.push(res.data.data)
-                this.isLoading = false
-              })
-              .catch(error => {
-                this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
-                this.isLoading = false
-              })
-          })
           this.isLoading = false
         })
         .catch(error => {
           this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
           this.isLoading = false
         })
+
+      for (let i = 0; i < this.cart.length; i++) {
+        const hotelApi = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/product/${this.cart[i].product.id}`
+        await this.$http.get(hotelApi)
+          .then(res => {
+            res.data.data.room = roomCountTransformation.decode(this.cart[i].quantity)
+            tempCartHotels.push(res.data.data)
+          })
+          .catch(error => {
+            this.$bus.$emit('pushmessage', 'warning', `連線錯誤 : ${error}`)
+          })
+      }
+      this.cartHotelsData = tempCartHotels
     },
     removeCartHotel (index) {
       this.isLoading = true
@@ -220,7 +221,7 @@ export default {
       }
       this.$http.delete(api, hotel)
         .then(res => {
-          this.cartHotelsData.splice(index, 1)
+          this.getCartData()
           this.$bus.$emit('updateCart')
           this.isLoading = false
         })
@@ -310,7 +311,7 @@ export default {
             name: 'Customer Order',
             params: {
               orderId: res.data.data.id,
-              amount: this.computeAmount
+              amount: this.amount
             }
           })
           this.$bus.$emit('updateCart')
@@ -326,7 +327,7 @@ export default {
     this.getCartData()
   },
   computed: {
-    computeAmount () {
+    amount () {
       if (this.cartHotelsData.length) {
         return this.cartHotelsData.reduce((accumulator, item) => {
           return accumulator +

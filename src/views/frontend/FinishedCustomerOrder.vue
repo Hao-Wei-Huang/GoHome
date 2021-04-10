@@ -26,9 +26,6 @@ export default {
   },
   methods: {
     goHotels (search) {
-      if (this.$route.path === '/products') {
-        return
-      }
       const tempSearch = JSON.parse(JSON.stringify(search))
       tempSearch.range.start = search.range.start.getTime()
       tempSearch.range.end = search.range.end.getTime()

@@ -204,7 +204,6 @@
 </template>
 
 <script>
-// import { roomCountToBit } from '@/room-count-transform.js'
 import roomCountTransformation from '@/assets/js/room-count-transformation.js'
 export default {
   data () {
@@ -306,6 +305,7 @@ export default {
       this.$http.get(api)
         .then(res => {
           this.hotel = res.data.data
+          // Init swiper component after geting hotel data.
           this.initSwiper()
           this.isLoading = false
         })
@@ -338,44 +338,44 @@ export default {
     addHotelToCart () {
       let quantity = 0
       let isAddedHotel = false
-      let isSameCount = false
 
-      // 該旅館房間數為 0
       this.room.total = this.room.doubleRoomCount + this.room.tripleRoomCount + this.room.quadrupleRoomCount
+      // Check if the room count of the hotel equal 0.
       if (this.room.total === 0) {
         this.$bus.$emit('pushmessage', 'warning', '請選擇房型')
         return
       }
-      // 將房間數編碼
+      // Encode the different types of room count to an interger.
       quantity = roomCountTransformation.encode(this.room)
-      // 判斷是否已經加入購物車
-      this.cart.forEach(item => {
-        if (item.product.id === this.hotelID) {
+      for (let i = 0; i < this.cart.length; i++) {
+        // Check if this hotel is added to cart.
+        if (this.cart[i].product.id === this.hotelID) {
           isAddedHotel = true
-          // 旅館房型的數量是否相同
-          if (item.quantity === quantity) {
-            isSameCount = true
+          // Check if the room count is equal with old one
+          if (this.cart[i].quantity === quantity) {
+            this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
+            return
           }
         }
-      })
-      // 數量一樣不再調整
-      if (isSameCount) {
-        this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
-        return
       }
+
       const hotel = {
         product: this.hotelID,
         quantity
       }
       this.isLoading = true
       const api = `${process.env.VUE_APP_APIPATH}${process.env.VUE_APP_UUID}/ec/shopping`
-      // true : patch, false : create
+      // Check if the hotel is added to the cart.
+      // true : Update the hotel order in the cart.
+      // false : Create the hotel order in the cart.
       if (isAddedHotel) {
         this.$http.patch(api, hotel)
           .then(res => {
+            // Deliver message to toast component.
             this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
-            this.getCartData()
+            // Notify cart menu to update.
             this.$bus.$emit('updateCart')
+            this.getCartData()
             this.isLoading = false
           })
           .catch(error => {
@@ -385,9 +385,11 @@ export default {
       } else {
         this.$http.post(api, hotel)
           .then(res => {
+            // Deliver message to toast component
             this.$bus.$emit('pushmessage', 'success', '該旅館已經成功加入購物車')
-            this.getCartData()
+            // Notify cart menu to update.
             this.$bus.$emit('updateCart')
+            this.getCartData()
             this.isLoading = false
           })
           .catch(error => {
@@ -441,7 +443,7 @@ export default {
       const choseCites = []
       const cityIndex = cities.indexOf(this.hotel.options.address.city)
       choseCites.push(this.hotel.options.address.city)
-      // Check the city is last one.
+      // Check if the city is last one.
       if (cities.length - 1 === cityIndex) {
         choseCites.push(cities[cityIndex - 1])
       } else {

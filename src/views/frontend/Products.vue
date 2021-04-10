@@ -134,7 +134,6 @@ export default {
       this.search.range.start = this.tempSearch.range.start
       this.search.range.end = this.tempSearch.range.end
       this.$refs.seachedData.classList.remove('show')
-      // document.querySelector('#seachedData').classList.remove('show')
     },
     getSearchDate () {
       if (this.$route.query.search && this.$route.query.search.destination) {

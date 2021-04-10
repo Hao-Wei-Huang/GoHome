@@ -56,8 +56,7 @@
                 </tr>
               </tbody>
             </table>
-            <router-link to="/products" v-if="isCheckout" class="btn btn-success w-100 mt-3">繼續逛逛</router-link>
-            <button type="button" v-else class="btn btn-danger w-100 mt-3" @click="checkout">前往前帳</button>
+            <button type="button" class="btn btn-danger w-100 mt-3" @click="checkout">前往前帳</button>
           </section>
         </div>
         <div class="col-lg-6 col-md-8 text-left mt-5">
@@ -95,7 +94,7 @@
 </template>
 
 <script>
-import { bitToRoomCount } from '@/room-count-transform.js'
+import roomCountTransformation from '@/assets/js/room-count-transformation.js'
 export default {
   data () {
     return {
@@ -105,12 +104,11 @@ export default {
       },
       orderId: '',
       amount: '',
-      isCheckout: false,
       isLoading: false
     }
   },
   methods: {
-    getOrderId () {
+    getRouterParam () {
       this.orderId = this.$route.params.orderId
       this.amount = this.$route.params.amount
     },
@@ -125,8 +123,8 @@ export default {
         })
     },
     computedRoomCount (quantity) {
-      const roomCount = bitToRoomCount(quantity)
-      return roomCount.doubleRoomCount + roomCount.tripleRoomCount + roomCount.quadrupleRoomCount
+      const room = roomCountTransformation.decode(quantity)
+      return room.total
     },
     checkout () {
       this.isLoading = true
@@ -135,7 +133,6 @@ export default {
         .then(res => {
           this.isLoading = false
           this.getOrder()
-          this.isCheckout = true
           // document.querySelector('.order-comfirmation').classList.remove('alert-success')
           // document.querySelector('.order-comfirmation').classList.add('alert-dark')
           // document.querySelector('.finished-reservation').classList.remove('alert-muted')
@@ -149,7 +146,7 @@ export default {
     }
   },
   created () {
-    this.getOrderId()
+    this.getRouterParam()
     this.getOrder()
   }
 }

@@ -8,7 +8,7 @@
           <div class="form-group ">
             <label for="loginEmail ">Email address*</label>
             <div class="position-relative">
-              <input type="email" class="form-control pl-4" id="loginEmail" v-model="email" aria-describedby="emailHelp " required>
+              <input type="email" class="form-control pl-4" id="loginEmail" v-model.trim="email" aria-describedby="emailHelp " required>
               <font-awesome-icon class="login-icon text-primary" :icon="['far', 'envelope']"/>
               <i class="login-icon far fa-envelope"></i>
             </div>
@@ -16,7 +16,7 @@
             <div class="form-group ">
               <label for="loginPassword ">Password*</label>
               <div class="position-relative">
-                <input type="password" class="form-control pl-4" id="loginPassword" v-model="password" required>
+                <input type="password" class="form-control pl-4" id="loginPassword" v-model.trim="password" required>
                 <font-awesome-icon class="login-icon text-primary" :icon="['fas', 'lock']"/>
               </div>
             </div>

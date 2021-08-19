@@ -28,13 +28,11 @@
                       </select>
                     </div>
                     <date-picker mode='range' color="teal" v-model="tempSearch.range" :popover="{ placement: 'bottom', visibility: 'click' }" :min-date="new Date()">
-                      <div>
-                        <div class="form-group">
-                          <label for="checkinDate">入住時間</label>
-                          <div class="position-relative mt-1">
-                            <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
-                            <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
-                          </div>
+                      <div class="form-group">
+                        <label for="checkinDate">入住時間</label>
+                        <div class="position-relative mt-1">
+                          <font-awesome-icon class="position-absolute text-primary mr-1 calendar-icon" :icon="['far', 'calendar-alt']"/>
+                          <input type="text" class="form-control pl-4 bg-white cursor rounded-0 border-0" id="checkinDate" v-model="checkinDate" aria-describedby="pickerDate" readonly>
                         </div>
                       </div>
                     </date-picker>
@@ -55,30 +53,28 @@
           </div>
           <div class="col-md-8 col-lg-9">
             <ul class="product-list">
-              <template>
-                <li class="row no-gutters mb-3 bg-shadow cursor" v-for="item in destinationHotels" :key="item.title" @click="goHotel(item)">
-                  <div class="col-4 col-lg-3 bg-lg-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`">
-                  </div>
-                  <div class="col-8 col-lg-9">
-                    <div class="d-flex flex-column p-3 text-left">
-                      <h2 class="h5 h4-md">
-                        <span class="d-block d-inline">{{ item.title }}</span>
-                        <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
-                      </h2>
-                      <div class="mt-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</div>
-                      <p class="mt-2 flex-grow-1 ellipsis">{{ item.content }}</p>
-                      <div class="text-right ">
-                        <h5 class="h6 h5-md text-line-through text-danger">${{ item.origin_price | moneyFilter }}</h5>
-                        <h4 class="h5 h4-md text-primary mb-2">每晚最低房價 : ${{ item.price | moneyFilter }}</h4>
-                        <div class="d-flex align-items-center">
-                          <span class="badge badge-secondary mr-auto">{{ item.category }}</span>
-                          <a href="#" class="btn btn-primary rounded-0">現在預定</a>
-                        </div>
+              <li class="row no-gutters mb-3 bg-shadow cursor" v-for="item in destinationHotels" :key="item.title" @click="goHotel(item)">
+                <div class="col-4 col-lg-3 bg-lg-image bg-cover" :style="`background-image: url(${item.imageUrl[0]});}`">
+                </div>
+                <div class="col-8 col-lg-9">
+                  <div class="d-flex flex-column p-3 text-left">
+                    <h2 class="h5 h4-md">
+                      <span class="d-block d-inline">{{ item.title }}</span>
+                      <font-awesome-icon class="h6 text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
+                    </h2>
+                    <div class="mt-2 text-primary"><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</div>
+                    <p class="mt-2 flex-grow-1 ellipsis">{{ item.content }}</p>
+                    <div class="text-right ">
+                      <h5 class="h6 h5-md text-line-through text-danger">${{ item.origin_price | moneyFilter }}</h5>
+                      <h4 class="h5 h4-md text-primary mb-2">每晚最低房價 : ${{ item.price | moneyFilter }}</h4>
+                      <div class="d-flex align-items-center">
+                        <span class="badge badge-secondary mr-auto">{{ item.category }}</span>
+                        <button type="button" class="btn btn-primary rounded-0">現在預定</button>
                       </div>
                     </div>
                   </div>
-                </li>
-              </template>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

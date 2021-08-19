@@ -1,8 +1,10 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-      <div class="container align-items-md-end ">
-        <router-link to="/" class="navbar-brand"><img src="@/../public/logo.png" alt="" width="100"></router-link>
+      <div class="container align-items-md-end">
+        <h1>
+          <router-link to="/" class="logo navbar-brand d-block bg-cover text-hide">Go Home</router-link>
+        </h1>
         <cart-menu class="ml-auto mr-3 d-block d-md-none"></cart-menu>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -44,11 +46,6 @@
 <script>
 import CartMenu from '@/components/CartMenu.vue'
 export default {
-  data () {
-    return {
-      isNavOpening: false
-    }
-  },
   components: {
     CartMenu
   },
@@ -59,6 +56,20 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-
+<style lang="scss" scoped>
+@import "~bootstrap/scss/functions";
+@import '~@/assets/scss/utils/variables';
+.logo{
+  background-image: url('~@/../public/logo.png');
+  width: 100px;
+  height: 84px;
+}
+.nav-link{
+  &.active{
+    color: $secondary !important;
+  }
+  &:hover{
+    color: $secondary !important;
+  }
+}
 </style>

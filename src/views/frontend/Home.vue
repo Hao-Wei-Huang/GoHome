@@ -5,8 +5,8 @@
         <h2 class="h3 h2-md text-white mb-2">
           新的旅程從訂房開始<font-awesome-icon :icon="['far', 'paper-plane']" class="ml-2"/>
         </h2>
-        <div class="form-row flex-column flex-md-row align-items-md-center ">
-          <div class="form-group mb-2 mb-md-0 mr-1" >
+        <div class="form-row flex-column flex-md-row align-items-md-center">
+          <div class="form-group mb-2 mb-md-0 mr-1">
             <select class="form-control" id="destination" name="縣市" v-model="search.destination" >
               <option disabled value="">前往哪裡旅遊</option>
               <option value="台北市">台北市</option>
@@ -120,20 +120,18 @@
       <section class="popular-hotels py-3 py-md-5">
         <h2 class="h3 h2-md mb-5">人氣飯店推薦</h2>
         <swiper class="swiper row p-1" :options="swiperOption" v-if="hotels.length">
-          <template v-for="item in popularHotels">
-            <swiper-slide class="col-12 col-sm-6 col-md-4 col-lg-3 cursor" :key="item.id">
-              <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
-                <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
-                <div class="p-3">
-                  <h5 class="mr-1">{{ item.title }}</h5>
-                  <div>
-                    <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
-                  </div>
-                  <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
+          <swiper-slide class="col-12 col-sm-6 col-md-4 col-lg-3 cursor" v-for="item in popularHotels" :key="item.id">
+            <div class="text-left bg-shadow h-100" @click="goHotel(item.id)">
+              <div class="bg-md-image" :style="`background-image: url(${item.imageUrl[0]});}`"></div>
+              <div class="p-3">
+                <h5 class="mr-1">{{ item.title }}</h5>
+                <div>
+                  <font-awesome-icon class="text-warning" v-for="hotelRating in Number(item.options.hotelRating)" :key="hotelRating" :icon="['fas', 'star']"/>
                 </div>
+                <span><font-awesome-icon class="text-secondary mr-1" :icon="['fas', 'map-marker-alt']"/>{{ item.options.address.city }}{{ item.options.address.road }}</span>
               </div>
-            </swiper-slide>
-          </template>
+            </div>
+          </swiper-slide>
           <div class="swiper-button-prev" slot="button-prev"><font-awesome-icon class="text-info h4" :icon="['fas', 'chevron-circle-left']"/></div>
           <div class="swiper-button-next" slot="button-next"><font-awesome-icon class="text-info h4" :icon="['fas', 'chevron-circle-right']"/></div>
         </swiper>
@@ -228,7 +226,7 @@ export default {
 @import "~@/assets/scss/utils/grid";
 .home-banner {
   background-image: url("https://images.unsplash.com/photo-1502514841534-dceabea28dad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1064&q=80");
-  height: calc(100vh - 110px);
+  height: calc(100vh - 100px);
 }
 .calendar-icon{
   top:0.7rem;

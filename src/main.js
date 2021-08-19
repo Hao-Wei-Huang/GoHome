@@ -38,19 +38,16 @@ import moneyFilter from '@/filters/money.js'
 import '@/assets/scss/all.scss'
 import App from './App.vue'
 import router from './router'
-
 // production mode
 Vue.config.productionTip = false
 window.$ = $
 // bus
 Vue.prototype.$bus = new Vue()
-
 /* plugin */
 // axios
 Vue.use(VueAxios, axios)
 // swiper
 Vue.use(VueAwesomeSwiper)
-
 /* component */
 // vee-valide
 Vue.component('ValidationObserver', ValidationObserver)
@@ -63,7 +60,7 @@ Vue.component('Loading', Loading)
 Vue.component('DatePicker', DatePicker)
 // toast
 Vue.component('Toasts', Toasts)
-
+Vue.axios.defaults.withCredentials = true
 // vee-valide setting
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule])
